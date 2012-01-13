@@ -78,5 +78,5 @@ Autores
 Copyright (c) 2007-2012 Desafio Alpha Dev Team <dev@desafioalpha.com.br>
 
 ### Contato:
-Christian Cândido da Silva <christian@desafioalpha.com.br>
+Christian Cândido da Silva <christian@desafioalpha.com.br>  
 Gilherme Hideo Tubone <guilherme@desafioalpha.com.br>
