@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+# RewriteRule ^.*$ index.php [NC,L]
+# Impede que a requisição de conteúdo estático chame a aplicação Zend (principalmente favicon.ico)
+RewriteRule !\.(ico|gif|jpg|png|css|js|html)$ index.php [NC,L]

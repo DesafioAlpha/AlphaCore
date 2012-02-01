@@ -1,0 +1,199 @@
+@charset "UTF-8";
+/**
+ * Desafio Alpha - AlphaCore
+ * 
+ * LICENÇA:
+ * 
+ * Este software é distribuído sob a licença GNU General Public License - Versão 3. 
+ * O conteúdo desta licença está disponível no arquivo LICENSE.txt e nos endereços web 
+ * http://doc.desafioalpha.com.br/legal e http://www.gnu.org/licenses/gpl.html
+ * 
+ * Qualquer dúvida sobre este arquivo fonte e como usá-lo refira-se à 
+ * documentação anexada à este pacote de software ou envie um email 
+ * para dev@desafioalpha.com.br
+ * 
+ * ESTE SOFTWARE É DISPONIBILIZADO 'NA FORMA COMO ESTÁ', O AUTOR NÃO OFERECE 
+ * NENHUMA GARANTIA, EXPLÍCITA OU IMPLÍCITA, SOBRE PRECISÃO E CONFIABILIDADE.
+ * SINTA-SE LIVRE PARA VER, MODIFICAR E REDISTRIBUIR, SOB AS CONDIÇÕES DA 
+ * LICENÇA APLICADA. 
+ *
+ * @category     Desafio Alpha
+ * @package      DA_Pub
+ * @subpackage   Css
+ * @file         pub.css
+ * @encoding     UTF-8
+ * 
+ * @author       Desafio Alpha Dev Team <dev@desafioalpha.com.br>
+ * @copyright    Copyright (c) 2007-2012 Desafio Alpha (http://desafioalpha.com.br)
+ * @license      http://doc.desafioalpha.com.br/legal/gplv3 GPLv3
+ * 
+ */
+/**
+ * Folha de estilos para o módulo 'pub'
+ */
+html,body {
+    background: #d5d5d5;
+}
+
+#pub_container,#pub_footer {
+    width: 880px;
+    /* Centraliza horizontalmente */
+    margin: 0 auto;
+}
+
+#pub_container {
+    background: #f2f2f2;
+    text-align: left;
+    /* Sombreamento */
+    -webkit-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.55);
+    -moz-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.55);
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.55);
+}
+
+#pub_content {
+    padding: 25px 45px 45px 45px;
+    overflow: hidden;
+    position: relative;
+}
+
+#pub_footer {
+    height: 80px;
+    padding: 15px;
+}
+
+#pub_header {
+    width: 100%;
+}
+
+/* Estilo do cabeçalho */
+#pub_header_main {
+    height: 160px;
+}
+/* Estilo do menu de navegação principal */
+#pub_nav {
+    height: 2.5em;
+}
+
+#pub_subnav {
+    padding-top: 0.4em;
+    height: 2.5em;
+}
+
+#pub_nav {
+    background: #eb5523;
+    /* Gradientes */
+    /* Firefox */
+    background-image: -moz-linear-gradient(#f29271, #eb5523);
+    /* Webkit (Safari, Chromium, ...) */
+    background-image: -webkit-linear-gradient(#f29271, #eb5523);
+    /* Opera */
+    background-image: -o-linear-gradient(#f29271, #eb5523);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f29271),
+        color-stop(1, #eb5523) );
+    background: -ms-linear-gradient(top, #f29271 0%, #eb5523 100%);
+    background: linear-gradient(top, #f29271 0%, #eb5523 100%);
+}
+
+#pub_subnav {
+    background: #999;
+}
+
+#pub_header div.nav ul {
+    text-align: center;
+    clear: left;
+    float: left;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    left: 50%;
+}
+
+#pub_header div.nav ul li {
+    display: block;
+    float: left;
+    list-style: none;
+    padding: 0 1em 0 0;
+    margin: 0;
+    position: relative;
+    right: 50%;
+}
+
+#pub_header div.nav ul a {
+    height: 100%;
+    vertical-align: middle;
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 0.5em 8px;
+    width: 6em;
+    transition-property: background, color;
+    -o-transition-property: background, color;
+    -moz-transition-property: background, color;
+    -webkit-transition-property: background, color;
+    transition-duration: 0.25s;
+    -o-transition-duration: 0.25s;
+    -moz-transition-duration: 0.25s;
+    -webkit-transition-duration: 0.25s;
+}
+
+#pub_nav ul li.active a,#pub_nav ul li a:hover {
+    background: #999;
+    /* Gradientes */
+    /* Firefox */
+    background-image: -moz-linear-gradient(#888, #999 10%);
+    /* Webkit (Safari, Chromium, ...) */
+    background-image: -webkit-linear-gradient(#888, #999 10%);
+    /* Opera (Renderiza diferentemente os stops) */
+    background-image: -o-linear-gradient(#888, #999 10%);
+}
+
+#pub_subnav ul li.active a,#pub_subnav ul li a:hover {
+    background: #f2f2f2;
+    color: #000;
+}
+
+#pub_header div.nav ul li.active a {
+    text-shadow: #bbb 2px 2px 2px;
+    font-weight: bold;
+}
+
+#pub_header_main {
+    position: relative;
+}
+
+#pub_header_logo {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 150px;
+    height: 100%;
+    margin-left: 20px;
+    /*     outline: 1px dashed #000; */
+    background: url("/media/logos/logo_header_main.png") no-repeat center
+        center;
+}
+
+#pub_header_logo a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+h1 {
+    color: #eb5523;
+    font-size: 1.6em;
+    font-weight: normal;
+    font-variant: small-caps;
+    background: url("/media/bgs/title_line.png") no-repeat left bottom;
+    margin-bottom: 20px;
+    text-shadow: #ccc 2px 2px 2px;
+}
+
+div.form_buttons {
+    padding-top: 10px;
+    margin-top: 15px;
+    width: 100%;
+    border-top: 1px solid #888;
+
+}

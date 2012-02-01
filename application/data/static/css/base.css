@@ -1,0 +1,172 @@
+@charset "UTF-8";
+/**
+ * Desafio Alpha - AlphaCore
+ * 
+ * LICENÇA:
+ * 
+ * Este software é distribuído sob a licença GNU General Public License - Versão 3. 
+ * O conteúdo desta licença está disponível no arquivo LICENSE.txt e nos endereços web 
+ * http://doc.desafioalpha.com.br/legal e http://www.gnu.org/licenses/gpl.html
+ * 
+ * Qualquer dúvida sobre este arquivo fonte e como usá-lo refira-se à 
+ * documentação anexada à este pacote de software ou envie um email 
+ * para dev@desafioalpha.com.br
+ * 
+ * ESTE SOFTWARE É DISPONIBILIZADO 'NA FORMA COMO ESTÁ', O AUTOR NÃO OFERECE 
+ * NENHUMA GARANTIA, EXPLÍCITA OU IMPLÍCITA, SOBRE PRECISÃO E CONFIABILIDADE.
+ * SINTA-SE LIVRE PARA VER, MODIFICAR E REDISTRIBUIR, SOB AS CONDIÇÕES DA 
+ * LICENÇA APLICADA. 
+ *
+ * @category     Desafio Alpha
+ * @package      DA_Pub
+ * @subpackage   Css
+ * @file         base.css
+ * @encoding     UTF-8
+ * 
+ * @author       Desafio Alpha Dev Team <dev@desafioalpha.com.br>
+ * @copyright    Copyright (c) 2007-2012 Desafio Alpha (http://desafioalpha.com.br)
+ * @license      http://doc.desafioalpha.com.br/legal/gplv3 GPLv3
+ * 
+ */
+/* Eric Meyer 's reset CSS */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td
+    {
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+
+.print_date {
+    display: none;
+}
+/* Ajusta o estilo de elementos da especificação 5 do HTML para navegadores antigos */
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section
+    {
+    display: block;
+}
+
+* {
+    font-family: "liberation sans", arial, helvetica, sans-serif;
+}
+
+html,body {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+p {
+    margin: 15px 0px;
+}
+/* Estilo para elementos de formulário */
+input[type="text"],input[type="password"] {
+    padding: 3px;
+    /* Gradientes */
+    /* Firefox */
+    background-image: -moz-linear-gradient(#eee, #fff 20%);
+    /* Webkit (Safari, Chromium, ...) */
+    background-image: -webkit-linear-gradient(#eee, #fff 20%);
+    /* Opera */
+    background-image: -o-linear-gradient(#eee, #fff 20%);
+}
+
+input[type="text"],input[type="password"],textarea,select {
+    /* Efeitos */
+    border: 1px #aaa solid;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.25);
+    transition-property: box-shadow;
+    -o-transition-property: box-shadow;
+    -moz-transition-property: box-shadow;
+    -webkit-transition-property: box-shadow;
+    transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -webkit-transition-duration: 0.5s;
+    /* Impede que o navegador defina uma moldura para o input em foco */
+    outline: none;
+}
+
+input[type="text"]:focus,input[type="password"]:focus,textarea:focus,select:focus
+    { /* Efeitos */
+    border: 1px #1d90f0 solid;
+    box-shadow: 0px 0px 10px rgba(21, 104, 174, 0.7);
+}
+
+form dl,form dt,form dd {
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+}
+a, a:link, a:active {
+    color: #eb5523;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+a:visited {
+    color: #BA431C;
+}
+a.button,a.button:link,a.button:visited,button {
+    background: transparent url("/media/bgs/button_right.png") no-repeat
+        scroll top right;
+    cursor: pointer;
+    border: 0;
+    display: block;
+    float: right;
+    height: 24px;
+    margin: 0 6px;
+    padding: 0 10px 0 0;
+    text-decoration: none;
+    color: #000;
+    overflow: visible;
+}
+button::-moz-focus-inner {
+    padding: 0;
+    border: none;  /* overrides extra padding in Firefox */
+}
+a.button span,button span {
+    background: transparent url("/media/bgs/button_left.png") no-repeat;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    display: block;
+    padding: 5px 0 5px 10px;
+    text-align: center;
+}
+
+a.button:hover,button:hover {
+    background-position: right -24px;
+    color: #000;
+    outline: none;
+}
+
+a.button:hover span,button:hover span {
+    background-position: left -24px;
+}
+
+a.button:active,button:active {
+    background-position: bottom right;
+    color: #000;
+    outline: none;
+}
+
+a.button:active span,button:active span {
+    background-position: bottom left;
+    padding: 5px 0 5px 10px;
+}
+
+.errors {
+    color: #A51010;
+    font-size: 0.9em;
+    margin: 0;
+    padding: 0;
+}
+
+ul.errors li {
+    margin-top: 10px;
+}

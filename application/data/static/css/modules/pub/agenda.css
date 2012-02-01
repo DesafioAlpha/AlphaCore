@@ -1,0 +1,184 @@
+@charset "UTF-8";
+/**
+ * Desafio Alpha - AlphaCore
+ * 
+ * LICENÇA:
+ * 
+ * Este software é distribuído sob a licença GNU General Public License - Versão 3. 
+ * O conteúdo desta licença está disponível no arquivo LICENSE.txt e nos endereços web 
+ * http://doc.desafioalpha.com.br/legal e http://www.gnu.org/licenses/gpl.html
+ * 
+ * Qualquer dúvida sobre este arquivo fonte e como usá-lo refira-se à 
+ * documentação anexada à este pacote de software ou envie um email 
+ * para dev@desafioalpha.com.br
+ * 
+ * ESTE SOFTWARE É DISPONIBILIZADO 'NA FORMA COMO ESTÁ', O AUTOR NÃO OFERECE 
+ * NENHUMA GARANTIA, EXPLÍCITA OU IMPLÍCITA, SOBRE PRECISÃO E CONFIABILIDADE.
+ * SINTA-SE LIVRE PARA VER, MODIFICAR E REDISTRIBUIR, SOB AS CONDIÇÕES DA 
+ * LICENÇA APLICADA. 
+ *
+ * @category     Desafio Alpha
+ * @package      DA_Pub
+ * @subpackage   Css
+ * @file         agenda.css
+ * @encoding     UTF-8
+ * 
+ * @author       Desafio Alpha Dev Team <dev@desafioalpha.com.br>
+ * @copyright    Copyright (c) 2007-2012 Desafio Alpha (http://desafioalpha.com.br)
+ * @license      http://doc.desafioalpha.com.br/legal/gplv3 GPLv3
+ * 
+ */
+/**
+ * Folha de estilo para os elementos da seção 'Agenda'
+ *
+ * Esquema de cores para o calendário de eventos:
+ *
+ * 1. #A4C1FF
+ * 2. #87D26D
+ * 3. #FCBB8F
+ * 4. #FFDA6A
+ * 5. #C4BC96
+ * 6. #B2A1C7
+ */
+table.calendar {
+    font-size: 0.9em;
+    margin-top: 10px;
+    margin-left: 40px;
+    border-spacing: 0;
+    background: -moz-linear-gradient(top, #ffffff 0%, #e2e2e2 100%);
+    background: -webkit-linear-gradient(top, #ffffff 0%, #e2e2e2 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff),
+        color-stop(1, #e2e2e2) );
+    background: -o-linear-gradient(top, #ffffff 0%, #e2e2e2 100%);
+    background: -ms-linear-gradient(top, #ffffff 0%, #e2e2e2 100%);
+    background: linear-gradient(top, #ffffff 0%, #e2e2e2 100%);
+    -webkit-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
+}
+
+table.calendar tr td.header {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-shadow: #bbb 2px 2px 2px;
+}
+
+table.calendar tr td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 0.6em 0.7em;
+    margin: 0px;
+}
+
+table.calendar tr td.weekDay {
+    font-size: 0.85em;
+    padding: 0.2em 0.7em;
+    color: #fff;
+    background: #eb5523;
+    -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+table.calendar tr td.event {
+    font-weight: bold;
+}
+
+table.calendar tr td.event_1 {
+    background: #a4c1ff;
+}
+
+table.calendar tr td.event_2 {
+    background: #87d26d;
+}
+
+table.calendar tr td.event_3 {
+    background: #fcbb8f;
+}
+
+table.calendar tr td.event_4 {
+    background: #ffda6a;
+}
+
+table.calendar tr td.event_5 {
+    background: #c4bc96;
+}
+
+table.calendar tr td.event_6 {
+    background: #b2a1c7;
+}
+
+div.event_desc {
+    font-size: 0.9em;
+    -webkit-box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.3);
+    position: relative;
+    padding: 15px;
+    clear: both;
+    border-width: 2px 3px 3px 2px;
+    border-style: solid;
+    width: 400px;
+    margin-top: 15px;
+    margin-right: 30px;
+    float: right;
+}
+
+div.event_desc div {
+    -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    width: 20px;
+    height: 20px;
+    top: -10px;
+    left: -10px;
+    position: absolute;
+}
+
+div.event_desc.event_1 {
+    border-color: #a4c1ff
+}
+
+div.event_desc.event_1 div {
+    background-color: #a4c1ff
+}
+
+div.event_desc.event_2 {
+    border-color: #87d26d
+}
+
+div.event_desc.event_2 div {
+    background-color: #87d26d
+}
+
+div.event_desc.event_3 {
+    border-color: #fcbb8f
+}
+
+div.event_desc.event_3 div {
+    background-color: #fcbb8f
+}
+
+div.event_desc.event_4 {
+    border-color: #ffda6a
+}
+
+div.event_desc.event_4 div {
+    background-color: #ffda6a
+}
+
+div.event_desc.event_5 {
+    border-color: #c4bc96
+}
+
+div.event_desc.event_5 div {
+    background-color: #c4bc96
+}
+
+div.event_desc.event_6 {
+    border-color: #b2a1c7
+}
+
+div.event_desc.event_6 div {
+    background-color: #b2a1c7
+}

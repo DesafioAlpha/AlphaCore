@@ -1,0 +1,65 @@
+@charset "UTF-8";
+/**
+ * Desafio Alpha - AlphaCore
+ * 
+ * LICENÇA:
+ * 
+ * Este software é distribuído sob a licença GNU General Public License - Versão 3. 
+ * O conteúdo desta licença está disponível no arquivo LICENSE.txt e nos endereços web 
+ * http://doc.desafioalpha.com.br/legal e http://www.gnu.org/licenses/gpl.html
+ * 
+ * Qualquer dúvida sobre este arquivo fonte e como usá-lo refira-se à 
+ * documentação anexada à este pacote de software ou envie um email 
+ * para dev@desafioalpha.com.br
+ * 
+ * ESTE SOFTWARE É DISPONIBILIZADO 'NA FORMA COMO ESTÁ', O AUTOR NÃO OFERECE 
+ * NENHUMA GARANTIA, EXPLÍCITA OU IMPLÍCITA, SOBRE PRECISÃO E CONFIABILIDADE.
+ * SINTA-SE LIVRE PARA VER, MODIFICAR E REDISTRIBUIR, SOB AS CONDIÇÕES DA 
+ * LICENÇA APLICADA. 
+ *
+ * @category     Desafio Alpha
+ * @package      DA_Pub
+ * @subpackage   Css
+ * @file         error.css
+ * @encoding     UTF-8
+ * 
+ * @author       Desafio Alpha Dev Team <dev@desafioalpha.com.br>
+ * @copyright    Copyright (c) 2007-2012 Desafio Alpha (http://desafioalpha.com.br)
+ * @license      http://doc.desafioalpha.com.br/legal/gplv3 GPLv3
+ * 
+ */
+h1 {
+    
+}
+
+h2 {
+    font-size: 1.2em;
+    margin-top: 1em;
+}
+
+pre {
+    font-family: monaco, monospace, courier;
+    font-size: 12px;
+}
+
+div.forbidden,div.notfound,div.error {
+    display: block;
+    padding: 15px 25px;
+    background-color: #f2f2f2;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+div#pub_content {
+    padding: 60px 0;
+    background: url("/media/bgs/yellow-black_stripes.jpg");
+}
+
+div.forbidden .errors {
+    display: block;
+    text-align: center;
+    font-size: 20px;
+}
+
+div.notfound {
+    
+}

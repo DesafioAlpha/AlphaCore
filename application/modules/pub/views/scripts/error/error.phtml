@@ -1,0 +1,23 @@
+<div class="error">
+<h1>Erro</h1>
+<h2><?php echo $this->message ?></h2>
+
+<?php if (isset($this->exception)){ ?>
+
+<h2>Exception information:</h2>
+<p>
+    <b>Message:</b> <?php echo $this->exception->getMessage()?>
+  </p>
+
+<h3>Stack trace:</h3>
+<pre><?php echo $this->exception->getTraceAsString()?>
+  </pre>
+
+<h3>Request Parameters:</h3>
+<pre><?php echo $this->escape(var_export($this->request->getParams(), true))?>
+  </pre>
+
+<?php }else{ echo '<p>' . $this->friendlyMessage . '</p>' ?>
+    
+<?php } ?>
+</div>

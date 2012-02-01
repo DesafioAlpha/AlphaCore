@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+    <nav>
+        <home>
+            <label>Início</label>
+            <controller>index</controller>
+            <action>index</action>
+            <title>Página inicial</title>
+            <page_title>Página inicial</page_title>
+            <title_show>false</title_show>
+        </home>
+        <login>
+            <controller>index</controller>
+            <action>login</action>
+            <title>Login</title>
+            <page_title>Acesse seu painel</page_title>
+            <visible>false</visible>
+        </login>
+        <agenda>
+            <label>Agenda</label>
+            <controller>agenda</controller>
+            <action>index</action>
+            <title>Datas agendadas</title>
+        </agenda>
+        <inscricao>
+            <label>Inscrições</label>
+            <controller>inscricoes</controller>
+            <action>index</action>
+            <title>Faça a inscrição da sua equipe aqui!</title>
+        </inscricao>
+        <contato>
+            <label>Contato</label>
+            <controller>contato</controller>
+            <action>index</action>
+            <title>Precisa de ajuda?</title>
+            <pages>
+                <contato>
+                    <label>Contato</label>
+                    <controller>contato</controller>
+                    <action>index</action>
+                </contato>
+                <ajuda>
+                    <label>Ajuda</label>
+                    <controller>contato</controller>
+                    <action>ajuda</action>
+                </ajuda>
+            </pages>
+        </contato>
+       
+        <equipe>
+            <label>Equipe</label>
+            <module>equipe</module>
+            <controller>index</controller>
+            <action>index</action>
+            <title>Painel da equipe</title>
+            <resource>team</resource>
+            <pages>
+                <equipe>
+                    <label>Equipe</label>
+                    <module>equipe</module>
+                    <controller>index</controller>
+                    <action>index</action>    
+                    <resource>team</resource>        
+                </equipe>
+                <individual>
+                    <label>Individual</label>
+                    <module>equipe</module>
+                    <controller>individual</controller>
+                    <action>index</action> 
+                    <resource>person</resource>
+                </individual>
+                <perfil>
+                    <label>Perfil</label>
+                    <module>equipe</module>
+                    <controller>perfil</controller>
+                    <action>index</action>    
+                    <resource>team</resource>        
+                </perfil>
+                <estatisticas>
+                    <label>Estatísticas</label>
+                    <module>equipe</module>
+                    <controller>estatisticas</controller>
+                    <action>index</action>     
+                    <resource>team</resource>       
+                </estatisticas>
+                <jogo>
+                    <label>Jogo</label>
+                    <module>equipe</module>
+                    <controller>jogo</controller>
+                    <action>index</action>   
+                    <resource>team</resource>         
+                </jogo>
+            </pages>
+        </equipe> 
+    </nav>
+</configdata>

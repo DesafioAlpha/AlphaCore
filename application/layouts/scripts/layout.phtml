@@ -1,0 +1,27 @@
+<?php echo $this->doctype() ?> 
+<html>
+<head>
+<?php $this->layout()->getView()->resourceLoader()->appendCss("modules/pub/pub.css", 'all') 
+?>
+<?php echo $this->headMeta() ?> 
+<?php echo $this->headLink() ?> 
+<?php echo $this->headScript() ?> 
+<?php echo $this->headTitle() ?> 
+</head>
+<body>
+    <div id="pub_container">
+    <?php echo $this->partial('partials/pub/header.phtml', array(
+        'nav'     => $this->navigation()->menu()->setMaxDepth(0), 
+        'identity' => Zend_Auth::getInstance()->getIdentity(),
+        )) ?>
+    <div id="pub_content">
+    <?php $title = $this->layout()->getView()->title ?>
+    <?php echo ($title)?'<h1>'.$title.'</h1>':'' ?>
+    <?php echo $this->layout()->content . "\n"?>
+        <div class="print_date">Versão de <?php echo date('Y-m-d H:i:s') ?></div>
+    </div>
+    </div>
+    <?php echo $this->partial('partials/pub/footer.phtml', array()) ?>
+    <div id="pub_bottom"></div>
+</body>
+</html>

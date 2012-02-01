@@ -1,0 +1,112 @@
+@charset "UTF-8";
+/**
+ * Desafio Alpha - AlphaCore
+ * 
+ * LICENÇA:
+ * 
+ * Este software é distribuído sob a licença GNU General Public License - Versão 3. 
+ * O conteúdo desta licença está disponível no arquivo LICENSE.txt e nos endereços web 
+ * http://doc.desafioalpha.com.br/legal e http://www.gnu.org/licenses/gpl.html
+ * 
+ * Qualquer dúvida sobre este arquivo fonte e como usá-lo refira-se à 
+ * documentação anexada à este pacote de software ou envie um email 
+ * para dev@desafioalpha.com.br
+ * 
+ * ESTE SOFTWARE É DISPONIBILIZADO 'NA FORMA COMO ESTÁ', O AUTOR NÃO OFERECE 
+ * NENHUMA GARANTIA, EXPLÍCITA OU IMPLÍCITA, SOBRE PRECISÃO E CONFIABILIDADE.
+ * SINTA-SE LIVRE PARA VER, MODIFICAR E REDISTRIBUIR, SOB AS CONDIÇÕES DA 
+ * LICENÇA APLICADA. 
+ *
+ * @category     Desafio Alpha
+ * @package      DA_Pub
+ * @subpackage   Css
+ * @file         print.css
+ * @encoding     UTF-8
+ * 
+ * @author       Desafio Alpha Dev Team <dev@desafioalpha.com.br>
+ * @copyright    Copyright (c) 2007-2012 Desafio Alpha (http://desafioalpha.com.br)
+ * @license      http://doc.desafioalpha.com.br/legal/gplv3 GPLv3
+ * 
+ */
+/* Evita problemas de contraste */
+*,html,body,h1 {
+    background: #fff;
+    color: black;
+    text-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.print_date {
+    padding: 7px; margin-top : 20px;
+    border-top: 1px solid #222;
+    display: block;
+    text-align: right;
+    margin-top: 20px;
+}
+
+h1 {
+    border-bottom: 1px solid #222;
+}
+
+p {
+    text-indent: 4em;
+}
+
+#pub_container,#pub_footer {
+    text-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    margin: 10px;
+    box-shadow: none;
+}
+
+#pub_header {
+    display: none;
+}
+/* Formata formulários para impressão */
+input[type="text"],input[type="password"] {
+    outline: none;
+    border: 0;
+    border-bottom: 1px solid #000;
+    /* Mostra campos de texto como linhas para preenchimento em papel */
+    background: #fff;
+    box-shadow: none;
+}
+
+input[type="button"],input[type="submit"] {
+    display: none;
+}
+
+/* Agenda */
+table.calendar,div.event_desc {
+    text-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+table.calendar td,table.calendar tr td.weekDay {
+    color: black;
+    background: transparent;
+    border: 1px solid #000;
+}
+
+table.calendar tr td.weekDay {
+    font-weight: bold;
+}
+
+table.calendar tr td.header {
+    text-shadow: none;
+}
+
+div.event_desc {
+    font-size: 1em;
+    border-width: 3px;
+}
+
+div.event_desc div {
+    display: none;
+}
