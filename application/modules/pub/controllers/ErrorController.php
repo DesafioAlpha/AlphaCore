@@ -34,8 +34,8 @@ class Pub_ErrorController extends Zend_Controller_Action
 
     public function errorAction()
     {
-        $this->view->title = null;
         $errors = $this->_getParam('error_handler');
+        $this->view->title->title = 'Erro';
         
         if (!$errors || !$errors instanceof ArrayObject) {
             $this->view->message = 'You have reached the error page';
@@ -89,7 +89,7 @@ class Pub_ErrorController extends Zend_Controller_Action
     public function forbiddenAction ()
     {
         $this->view->title->title = "Acesso negado";
-        $this->view->title->show  = false;
+        $this->view->title->show = false;
         
         $this->getResponse()->setHttpResponseCode(403);
     }

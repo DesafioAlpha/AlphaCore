@@ -18,7 +18,7 @@
  * LICENÇA APLICADA. 
  *
  * @category     Desafio Alpha
- * @package      DA_
+ * @package      DA_Models
  * @file         City.php
  * @encoding     UTF-8
  * 

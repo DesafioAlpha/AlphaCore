@@ -74,22 +74,26 @@ class DA_Plugin_BuildUp extends Zend_Controller_Plugin_Abstract
             $cache->save($navigation, "{$module}_nav");
         
         }
+        
         $view->navigation($navigation); // Expõe a navegação para as views
+        
+        $view->title = new stdClass();
         
         /* Passa o título para a página definido no arquivo de configuração de navegação */
         if($thisPage = $view->navigation()->findOneBy('active', true)){ // Obtem a entrada ativa do menu
-        
-            $view->title = new stdClass();
-            
+                    
             $view->title->title = ((isset($thisPage->page_title))?$thisPage->page_title:$thisPage->getLabel());
         
             // Define o título da página para as tags <title> e <h1>
             $view->title->show = (($thisPage->get('title_show') == 'false')?false:true);
             
-            $view->headTitle()->setSeparator(' | ') // Separador das seções do título das páginas
-                 ->headTitle($constants['projectName']); // Define o título padrão para todas as páginas
-        
+        }else{
+            $view->title->title = '';
+            $view->title->show = false;
         }
+        
+        $view->headTitle()->setSeparator(' | ') // Separador das seções do título das páginas
+             ->headTitle($constants['projectName']); // Define o título padrão para todas as páginas
         
         /* Ícones para as páginas */
         $view->headLink(array('rel' => 'favicon', 'href' => STATIC_URL . '/media/icons/favicon_default.ico', 'type' => 'image/x-icon' ))

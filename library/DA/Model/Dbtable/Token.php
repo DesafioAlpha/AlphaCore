@@ -59,7 +59,6 @@ class DA_Model_Dbtable_Token extends Zend_Db_Table_Abstract
         $select = $this->select();
         
         $select->from($this, 'user_id')
-//                ->where('user_id = ?', $userId)
                ->where("token = MD5(CONCAT(?, token_salt, '{$this->_staticSalt}'))", $tokenData);
         
         if($response = $this->fetchRow($select)){
