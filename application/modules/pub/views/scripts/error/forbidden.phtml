@@ -19,6 +19,7 @@
  *
  * @category     Desafio Alpha
  * @package      DA_Error
+ * @subpackage   Error
  * @file         forbidden.phtml
  * @encoding     UTF-8
  * 
@@ -29,7 +30,6 @@
 
 ?>
 <div class="forbidden">
-<span class="errors">Você não tem permissão para acessar esse recurso!</span>
-<?php /* ?><span>Clique <a href="/index/login">aqui</a> para fazer login</span>
-<?php */ ?>
+<span class="errors">Você não tem permissão para acessar este recurso!</span>
+<?php if(!Zend_Auth::getInstance()->hasIdentity()){ ?><span class="do_login">Clique <a href="/login/" class="login">aqui</a> para se autenticar</span><?php } ?>
 </div>

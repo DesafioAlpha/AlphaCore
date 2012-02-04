@@ -189,11 +189,3 @@ h1 {
     margin-bottom: 20px;
     text-shadow: #ccc 2px 2px 2px;
 }
-
-div.form_buttons {
-    padding-top: 10px;
-    margin-top: 15px;
-    width: 100%;
-    border-top: 1px solid #888;
-
-}

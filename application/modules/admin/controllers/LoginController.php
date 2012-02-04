@@ -18,22 +18,42 @@
  * LICENÇA APLICADA. 
  *
  * @category     Desafio Alpha
- * @package      DA_Pub
- * @subpackage   Index
- * @file         login.phtml
+ * @package      DA_Admin
+ * @subpackage   Login
+ * @file         LoginController.php
  * @encoding     UTF-8
  * 
  * @author       Desafio Alpha Dev Team <dev@desafioalpha.com.br>
  * @copyright    Copyright (c) 2007-2012 Desafio Alpha (http://desafioalpha.com.br)
  * @license      http://doc.desafioalpha.com.br/legal/gplv3 GPLv3
  */
-?>
-<div id="pub_form_login">
-    <div class="login_content">
 
-        <h2>
-            Login<span class="errors"><?php echo ( sizeof( $this->messages ) > 0 ) ? $this->messages[0] : ""; ?></span>
-        </h2>
-            <?php echo $this->form; ?>
-    </div>
-</div>
+class Admin_LoginController extends Zend_Controller_Action
+{
+    
+    /**
+     * Apaga a identidade do cliente, se ela existir
+     */
+    public function logoutAction ()
+    {
+        if(DA_Plugin_Auth::logout()){
+            $this->_helper->flashMessenger('Você saiu do sistema com sucesso!');
+        }
+        // Redireciona para o formulário de login
+        return $this->_redirect('/login/');
+    
+    }
+    
+    
+    /**
+     * Login
+     */
+    public function indexAction ()
+    {
+        $login = new DA_Helper_Login($this);
+        if($login->doLogin()){
+            // Redireciona para a ação adequada
+            return $this->_redirect('/');
+        }
+    }
+}

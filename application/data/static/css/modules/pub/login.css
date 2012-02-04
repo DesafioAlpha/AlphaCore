@@ -20,7 +20,7 @@
  * @category     Desafio Alpha
  * @package      DA_Pub
  * @subpackage   Css
- * @file         index.css
+ * @file         login.css
  * @encoding     UTF-8
  * 
  * @author       Desafio Alpha Dev Team <dev@desafioalpha.com.br>
@@ -28,42 +28,37 @@
  * @license      http://doc.desafioalpha.com.br/legal/gplv3 GPLv3
  * 
  */
-/**
- * Folha de estilos para a página inicial
- */
-#pub_form_login,#pub_form_login form {
-    /*     border: 1px dashed black; */
-    
-}
 
-#pub_form_login {
+/**
+ * Folha de estilos para o formulário de login
+ */
+#form_login {
     float: left;
     position: relative;
     left: 50%;
 }
 
-#pub_form_login div.login_content {
+#form_login div.login_content {
     width: 370px;
     position: relative;
     left: -50%;
     display: block;
-    position: relative;
 }
 
-#pub_form_login dt {
+#form_login dt {
     clear: left;
 }
 
-#pub_form_login dd {
+#form_login dd {
     margin-bottom: 10px;
     clear: right;
 }
-#pub_form_login label {
+#form_login label {
     padding: 0 10px;
     color: #444;
     font-style: italic;
 }
-#pub_form_login dt label {
+#form_login dt label {
     position: relative;
     width: 7em;
     display: block;
@@ -72,7 +67,7 @@
     
 }
 
-#pub_form_login h2 {
+#form_login h2 {
     font-size: 1.2em;
     display: block;
     text-align: left;
@@ -81,12 +76,12 @@
     border-bottom: 1px solid #888;
 }
 
-#pub_form_login h2 span {
+#form_login h2 span {
     float: right;
     font-weight: normal;
 }
 
-#pub_form_login input.indent {
+#form_login input.indent {
 }
 ul.errors {
     margin-left: 7em;

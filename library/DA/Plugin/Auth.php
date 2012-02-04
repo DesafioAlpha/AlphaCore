@@ -69,7 +69,8 @@ class DA_Plugin_Auth extends Zend_Controller_Plugin_Abstract
             array('name' => 'guest',  'parents' => null),    
             array('name' => 'team',   'parents' => 'guest'),
             array('name' => 'person', 'parents' => 'team'),
-            array('name' => 'admin',  'parents' => 'person'),
+            array('name' => 'school',  'parents' => null),
+            array('name' => 'admin',  'parents' => array('team','school')),
         );
         
         $role = 'guest';
@@ -112,10 +113,11 @@ class DA_Plugin_Auth extends Zend_Controller_Plugin_Abstract
             }
         }
         
-        if($thisPage = $view->navigation()->findOneBy('active', true)){
+        
+        if($thisPage = $view->navigation()->findBy('active', true)){
             if($thisPage->getResource() && !$acl->isAllowed($role, $thisPage->getResource())){
                 $this->_session->url_redir = $_SERVER['REQUEST_URI'];
-                $request->setControllerName('error')->setActionName('forbidden');
+                   $request->setControllerName('error')->setActionName('forbidden');
             }
         }
 
@@ -131,11 +133,20 @@ class DA_Plugin_Auth extends Zend_Controller_Plugin_Abstract
      * 
      * return boolean
      */
-    public static function doAuth($table, array $identityData, array $credentialData, $ambiguity = false){
+    public static function doAuth($username, $password){
 
         // Adaptador de BD a ser usado pelo componente de autenticação
         $authDb = new Zend_Auth_Adapter_DbTable(Zend_Db_Table::getDefaultAdapter());
         
+        $table = "user";
+        
+        $identityData = array(
+            'column' => 'username',     'value' => $username
+        );
+        $credentialData = array(
+            'column' => 'password', 'value' => $password
+        );
+
         /* Sal estático para uso na digestão da senha */
         $constants = Zend_Registry::get('constants');
         $staticSalt = $constants['staticSalt'];
@@ -143,7 +154,6 @@ class DA_Plugin_Auth extends Zend_Controller_Plugin_Abstract
         // Parâmetros para a consulta
         $authDb->setTableName($table)
                ->setIdentityColumn($identityData['column'])
-               ->setAmbiguityIdentity($ambiguity) // Permite identidade ambigua
                ->setIdentity($identityData['value'])
                
                ->setCredentialColumn($credentialData['column'])

@@ -19,24 +19,21 @@
  *
  * @category     Desafio Alpha
  * @package      DA_Pub
- * @subpackage   Contato
- * @file         ContatoController.php
+ * @subpackage   Login
+ * @file         index.phtml
  * @encoding     UTF-8
  * 
  * @author       Desafio Alpha Dev Team <dev@desafioalpha.com.br>
  * @copyright    Copyright (c) 2007-2012 Desafio Alpha (http://desafioalpha.com.br)
  * @license      http://doc.desafioalpha.com.br/legal/gplv3 GPLv3
  */
+?>
+<div id="form_login">
+    <div class="login_content">
 
-class Pub_ContatoController extends Zend_Controller_Action
-{
-    public function init()
-    {
-    }
-    public function indexAction()
-    {
-    }
-    public function ajudaAction()
-    {
-    }
-}
+        <h2>
+            Login<span class="errors"><?php echo ( sizeof( $this->messages ) > 0 ) ? $this->messages[0] : ""; ?></span>
+        </h2>
+            <?php echo $this->form; ?>
+    </div>
+</div>

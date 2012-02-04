@@ -28,7 +28,7 @@
  * 
  */
 
-class DA_Form_Acl_Login extends Zend_Form
+class DA_Form_Auth_Login extends Zend_Form
 {
     public function init()
     {
@@ -46,7 +46,6 @@ class DA_Form_Acl_Login extends Zend_Form
             array(
                 'label' => 'form_pwd',
                 'required' => true,
-                'autocomplete' => 'off'
             )
          );
          
@@ -73,9 +72,10 @@ class DA_Form_Acl_Login extends Zend_Form
          ));
          
          // Adiciona um campo de valor único para evitar ataques CSRF
-//         $this->addElement('hash', 'id', array(
-//             'ignore'    => true,
-//         ));
+         $this->addElement('hash', 'id', array(
+            'ignore'    => true,
+         ));
+         
          // Envolve os botões em um elemento div
          $this->addDisplayGroup(array('send', 'remember'), 'buttons')
               ->getDisplayGroup('buttons')

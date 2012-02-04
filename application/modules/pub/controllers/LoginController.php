@@ -19,8 +19,8 @@
  *
  * @category     Desafio Alpha
  * @package      DA_Pub
- * @subpackage   Index
- * @file         IndexController.php
+ * @subpackage   Login
+ * @file         LoginController.php
  * @encoding     UTF-8
  * 
  * @author       Desafio Alpha Dev Team <dev@desafioalpha.com.br>
@@ -33,15 +33,15 @@
  * Controlador para a página principal
  *
  * @package      DA_Pub
- * @subpackage   Index
+ * @subpackage   Login
  *
  * @author       Desafio Alpha Dev Team <dev@desafioalpha.com.br>
  * @copyright    Copyright (c) 2007-2012 Desafio Alpha (http://desafioalpha.com.br)
  * @license      http://doc.desafioalpha.com.br/legal/gplv3 GPLv3
  *
  */
-class Pub_IndexController extends Zend_Controller_Action
-{    
+class Pub_LoginController extends Zend_Controller_Action
+{   
     /** 
      * Inicialização dos recursos
      * 
@@ -53,12 +53,29 @@ class Pub_IndexController extends Zend_Controller_Action
     }
     
     /**
-     * Página inicial 
+     * Apaga a identidade do cliente, se ela existir 
+     */
+    public function logoutAction ()
+    {
+        if(DA_Plugin_Auth::logout()){
+            $this->_helper->flashMessenger('Você saiu do sistema com sucesso!');
+        }
+        // Redireciona para o formulário de login
+        return $this->_redirect('/login/');
+        
+    }
+
+    
+    /**
+     * Login 
      */
     public function indexAction ()
     {
-
-        
+        $login = new DA_Helper_Login($this);
+        if($login->doLogin()){
+            // Redireciona para a ação adequada
+            return $this->_redirect('/equipe');
+        }
     }
 }
 

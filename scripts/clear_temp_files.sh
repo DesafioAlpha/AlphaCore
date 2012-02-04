@@ -26,7 +26,7 @@
 # @copyright    Copyright (c) 2007-2012 Desafio Alpha (http://desafioalpha.com.br)
 # @license      http://doc.desafioalpha.com.br/legal/gplv3 GPLv3
 #
-
+cd ../temp/
 echo '--------------------------------------------';
 echo 'Removendo arquivos ...';
 rm -f session/*;

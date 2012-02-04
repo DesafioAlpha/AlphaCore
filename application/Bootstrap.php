@@ -52,31 +52,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('frontController'); // Carrega o recurso frontController
         $this->bootstrap('view'); // Inicia o recurso view
         
-//         $frontController = Zend_Controller_Front::getInstance();
-//         $router = $frontController->getRouter();
-        
-//         $router->removeDefaultRoutes();
-        
-//         $www = new Zend_Controller_Router_Route_Hostname(
-//                     'desafio_alpha', 
-                        
-//                     array('module' => 'pub', 'controller' => 'index', 'action' => 'index')
-                         
-//                 )  ;
-        
-//         $pub = new Zend_Controller_Router_Route(":@controller/:@action/*",
-//             array('module' => 'pub', 'controller' => 'index', 'action' => 'index')
-//         );
-        
-//         $teste = new Zend_Controller_Router_Route("equipe/:@controller/:@action/*", 
-//             array('module' => 'equipe', 'controller' => 'index', 'action' => 'index')
-//         );
-        
-//         $www->chain($teste);
-
-//         $router->addRoute('defaultt', $pub);
-//         $router->addRoute('teste', $teste);
-        
         // Registra o namespace padrão para sessões
         Zend_Registry::set('Zend_Session', new Zend_Session_Namespace());
         
@@ -195,29 +170,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      * search engines e muito mais.
      */
     protected function _initContents ()
-    {
+    {        
         
-        if(!($navigation = $this->_cache->load('menu') )){
-            $config = new Zend_Config_Xml(APPLICATION_PATH . '/configs/nav.xml', 'nav'); // Interpreta as configurações do arquivo Xml em um arra
-            $navigation = new Zend_Navigation($config); // Cria uma instância do Zend_Navigation, com as configurações acima
-            
-            $this->_cache->save($navigation, 'menu');
-        }
-        $this->view->navigation($navigation); // Expõe a navegação para as views
-        
-        
-        /* Ícones para as páginas */
-        $this->view->headLink(array('rel' => 'favicon', 'href' => STATIC_URL . '/media/icons/favicon_default.ico', 'type' => 'image/x-icon' ))
-             ->headLink(array('rel' => 'shortcut icon', 'href' => STATIC_URL . '/media/icons/favicon_default.ico', 'type' => 'image/x-icon' ))
-//              ->headLink(array('rel' => 'icon', 'href' => STATIC_URL . '/media/icons/da_icon_32.png', 'type' => 'image/png', 'sizes' => '32x32'))
-//              ->headLink(array('rel' => 'icon', 'href' => STATIC_URL . '/media/icons/da_icon_48.png', 'type' => 'image/png', 'sizes' => '48x48'));
-        ;
-        
-        
-        /* Define as tags do cabeçalho */
-        $this->view->headTitle('Desafio Alpha'); // Define o título padrão para todas as páginas
-        $this->view->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8'); // Inclui a meta tag 'Content-type' em todas as páginas
-        $this->view->headTitle()->setSeparator(' | '); // Separador das seções do título das páginas
                 
     }
     

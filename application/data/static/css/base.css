@@ -170,3 +170,18 @@ a.button:active span,button:active span {
 ul.errors li {
     margin-top: 10px;
 }
+
+
+div.form_buttons {
+    padding-top: 10px;
+    margin-top: 15px;
+    width: 100%;
+    border-top: 1px solid #888;
+
+}
+span.do_login {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    font-size: 1.1em;
+}

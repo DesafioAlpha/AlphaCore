@@ -8,41 +8,48 @@
             <title>Página inicial</title>
             <page_title>Página inicial</page_title>
             <title_show>false</title_show>
+            <route>default</route>
         </home>
         <login>
-            <controller>index</controller>
-            <action>login</action>
+            <controller>login</controller>
+            <action>index</action>
             <title>Login</title>
             <page_title>Acesse seu painel</page_title>
             <visible>false</visible>
+            <route>default</route>
         </login>
         <agenda>
             <label>Agenda</label>
             <controller>agenda</controller>
             <action>index</action>
             <title>Datas agendadas</title>
+            <route>default</route>
         </agenda>
         <inscricao>
             <label>Inscrições</label>
             <controller>inscricoes</controller>
             <action>index</action>
             <title>Faça a inscrição da sua equipe aqui!</title>
+            <route>default</route>
         </inscricao>
         <contato>
             <label>Contato</label>
             <controller>contato</controller>
             <action>index</action>
             <title>Precisa de ajuda?</title>
+            <route>default</route>
             <pages>
                 <contato>
                     <label>Contato</label>
                     <controller>contato</controller>
                     <action>index</action>
+                    <route>default</route>
                 </contato>
                 <ajuda>
                     <label>Ajuda</label>
                     <controller>contato</controller>
                     <action>ajuda</action>
+                    <route>default</route>
                 </ajuda>
             </pages>
         </contato>
