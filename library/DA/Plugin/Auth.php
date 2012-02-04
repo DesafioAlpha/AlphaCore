@@ -91,9 +91,12 @@ class DA_Plugin_Auth extends Zend_Controller_Plugin_Abstract
                 if($userId = $token->getUser($tokenData)){
                     
                     $user = new DA_Model_Dbtable_User();
+                    $authLog = new DA_Model_Dbtable_AuthLog();
                     
                     if($userData = $user->getUserData($userId, self::$_userFields)){
                         Zend_Auth::getInstance()->getStorage()->write($userData);    
+                        $authLog->addLog($_SERVER['REQUEST_URI'], null, 0, $userId, $tokenData, 0, 1, 1);
+                        
                     }
 
                 }
@@ -133,7 +136,7 @@ class DA_Plugin_Auth extends Zend_Controller_Plugin_Abstract
      * 
      * return boolean
      */
-    public static function doAuth($username, $password){
+    public static function doAuth($username, $password, $referer = null, $remember = 0, $days = 30){
 
         // Adaptador de BD a ser usado pelo componente de autenticação
         $authDb = new Zend_Auth_Adapter_DbTable(Zend_Db_Table::getDefaultAdapter());
@@ -141,7 +144,7 @@ class DA_Plugin_Auth extends Zend_Controller_Plugin_Abstract
         $table = "user";
         
         $identityData = array(
-            'column' => 'username',     'value' => $username
+            'column' => 'username', 'value' => $username
         );
         $credentialData = array(
             'column' => 'password', 'value' => $password
@@ -165,6 +168,10 @@ class DA_Plugin_Auth extends Zend_Controller_Plugin_Abstract
         $auth   = Zend_Auth::getInstance();
         $result = $auth->authenticate($authDb);
         
+        /* Parâmetros para registro no logger */
+        $authLog = new DA_Model_Dbtable_AuthLog();
+        $urlAction = $_SERVER['REQUEST_URI'];
+        
         if($result->isValid()){
             
             $identity = $authDb->getResultRowObject(self::$_userFields); // Salva os dados da identidade ignorando a senha
@@ -175,8 +182,19 @@ class DA_Plugin_Auth extends Zend_Controller_Plugin_Abstract
             
             $auth->getStorage()->write($identity); // Armazena os dados do usuário retirando a senha
             
+            // Persiste a sessão em um cookie
+            if($remember){
+                self::doPersist($identity->user_id, $days);
+            }
+            
+            // Registra o login
+            $authLog->addLog($urlAction, $urlRedir, 0, $identity->user_id, $username, $remember, 0, 1);
+            
             return $identity->user_id;
             
+        }else{
+            // Registra a tentativa sem sucesso
+            $authLog->addLog($urlAction, $urlRedir, 0, null, $username, $remember, 0, 0);
         }
         
         return false;
@@ -203,11 +221,21 @@ class DA_Plugin_Auth extends Zend_Controller_Plugin_Abstract
      */
     public static function logout()
     {
-        $auth = Zend_Auth::getInstance();
-        setcookie('RID', FALSE, 1, '/'); // Apaga o cookie de Persistência
+        $auth = Zend_Auth::getInstance();        
         
         if($auth->hasIdentity()){ // Caso exista alguma identidade, apaga-a e exibe uma mensagem de sucesso
-            $auth->clearIdentity();      
+
+            setcookie('RID', FALSE, 1, '/'); // Apaga o cookie de Persistência
+            
+            /* Registra a saída */
+            $authLog = new DA_Model_Dbtable_AuthLog();
+            $urlAction = $_SERVER['REQUEST_URI'];
+            $urlReferer = $_SERVER['HTTP_REFERER'];
+            $authLog->addLog($urlAction, $urlReferer, 1, $auth->getIdentity()->user_id);
+            
+            // Apaga os dados armazenados
+            $auth->clearIdentity();
+            
             return true;
         }
         return false;

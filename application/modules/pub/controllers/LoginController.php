@@ -49,7 +49,7 @@ class Pub_LoginController extends Zend_Controller_Action
      */
     public function init ()
     {
-        
+        $this->_login = new DA_Helper_Login($this);
     }
     
     /**
@@ -57,12 +57,10 @@ class Pub_LoginController extends Zend_Controller_Action
      */
     public function logoutAction ()
     {
-        if(DA_Plugin_Auth::logout()){
-            $this->_helper->flashMessenger('Você saiu do sistema com sucesso!');
-        }
-        // Redireciona para o formulário de login
-        return $this->_redirect('/login/');
-        
+        if($this->_login->doLogout()){
+            // Redireciona para o formulário de login
+            return $this->_redirect('/login/');
+        }      
     }
 
     
@@ -71,8 +69,7 @@ class Pub_LoginController extends Zend_Controller_Action
      */
     public function indexAction ()
     {
-        $login = new DA_Helper_Login($this);
-        if($login->doLogin()){
+        if($this->_login->doLogin()){
             // Redireciona para a ação adequada
             return $this->_redirect('/equipe');
         }

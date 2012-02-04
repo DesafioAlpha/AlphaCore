@@ -186,6 +186,68 @@ CREATE  TABLE IF NOT EXISTS `desafio_alpha_alphacore`.`resource` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `desafio_alpha_alphacore`.`auth_log`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `desafio_alpha_alphacore`.`auth_log` (
+  `auth_log_id` INT NOT NULL AUTO_INCREMENT ,
+  `time` TIMESTAMP NULL ,
+  `user_id` VARCHAR(40) NULL ,
+  `logout` TINYINT(1) NULL ,
+  `client_ip` VARCHAR(15) NULL ,
+  `client_ua` VARCHAR(255) NULL ,
+  `is_successfully` TINYINT(1) NULL ,
+  `from_cookie` TINYINT(1) NULL ,
+  `post_identity` VARCHAR(255) NULL ,
+  `post_rememberme` TINYINT(1) NULL ,
+  `url_referer` VARCHAR(255) NULL ,
+  `url_action` VARCHAR(255) NULL ,
+  PRIMARY KEY (`auth_log_id`) )
+ENGINE = InnoDB;
+
+
+CREATE USER `desafio_alpha` IDENTIFIED BY 'desafio_alpha';
+
+grant SELECT on TABLE `desafio_alpha_alphacore`.`user` to desafio_alpha;
+grant UPDATE on TABLE `desafio_alpha_alphacore`.`user` to desafio_alpha;
+grant INSERT on TABLE `desafio_alpha_alphacore`.`user` to desafio_alpha;
+grant DELETE on TABLE `desafio_alpha_alphacore`.`user` to desafio_alpha;
+grant DELETE on TABLE `desafio_alpha_alphacore`.`city` to desafio_alpha;
+grant SELECT on TABLE `desafio_alpha_alphacore`.`city` to desafio_alpha;
+grant UPDATE on TABLE `desafio_alpha_alphacore`.`city` to desafio_alpha;
+grant INSERT on TABLE `desafio_alpha_alphacore`.`city` to desafio_alpha;
+grant DELETE on TABLE `desafio_alpha_alphacore`.`resource` to desafio_alpha;
+grant SELECT on TABLE `desafio_alpha_alphacore`.`resource` to desafio_alpha;
+grant UPDATE on TABLE `desafio_alpha_alphacore`.`resource` to desafio_alpha;
+grant INSERT on TABLE `desafio_alpha_alphacore`.`resource` to desafio_alpha;
+grant DELETE on TABLE `desafio_alpha_alphacore`.`role` to desafio_alpha;
+grant SELECT on TABLE `desafio_alpha_alphacore`.`role` to desafio_alpha;
+grant INSERT on TABLE `desafio_alpha_alphacore`.`role` to desafio_alpha;
+grant UPDATE on TABLE `desafio_alpha_alphacore`.`role` to desafio_alpha;
+grant SELECT on TABLE `desafio_alpha_alphacore`.`country` to desafio_alpha;
+grant INSERT on TABLE `desafio_alpha_alphacore`.`country` to desafio_alpha;
+grant DELETE on TABLE `desafio_alpha_alphacore`.`country` to desafio_alpha;
+grant UPDATE on TABLE `desafio_alpha_alphacore`.`country` to desafio_alpha;
+grant DELETE on TABLE `desafio_alpha_alphacore`.`event` to desafio_alpha;
+grant UPDATE on TABLE `desafio_alpha_alphacore`.`event` to desafio_alpha;
+grant SELECT on TABLE `desafio_alpha_alphacore`.`event` to desafio_alpha;
+grant INSERT on TABLE `desafio_alpha_alphacore`.`event` to desafio_alpha;
+grant DELETE on TABLE `desafio_alpha_alphacore`.`person` to desafio_alpha;
+grant INSERT on TABLE `desafio_alpha_alphacore`.`person` to desafio_alpha;
+grant SELECT on TABLE `desafio_alpha_alphacore`.`person` to desafio_alpha;
+grant UPDATE on TABLE `desafio_alpha_alphacore`.`person` to desafio_alpha;
+grant DELETE on TABLE `desafio_alpha_alphacore`.`state` to desafio_alpha;
+grant INSERT on TABLE `desafio_alpha_alphacore`.`state` to desafio_alpha;
+grant SELECT on TABLE `desafio_alpha_alphacore`.`state` to desafio_alpha;
+grant UPDATE on TABLE `desafio_alpha_alphacore`.`state` to desafio_alpha;
+grant DELETE on TABLE `desafio_alpha_alphacore`.`team` to desafio_alpha;
+grant INSERT on TABLE `desafio_alpha_alphacore`.`team` to desafio_alpha;
+grant SELECT on TABLE `desafio_alpha_alphacore`.`team` to desafio_alpha;
+grant UPDATE on TABLE `desafio_alpha_alphacore`.`team` to desafio_alpha;
+grant DELETE on TABLE `desafio_alpha_alphacore`.`token` to desafio_alpha;
+grant INSERT on TABLE `desafio_alpha_alphacore`.`token` to desafio_alpha;
+grant SELECT on TABLE `desafio_alpha_alphacore`.`token` to desafio_alpha;
+grant UPDATE on TABLE `desafio_alpha_alphacore`.`token` to desafio_alpha;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

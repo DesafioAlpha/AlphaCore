@@ -66,6 +66,14 @@ class DA_Helper_Login extends Zend_Controller_Action_Helper_Abstract
     {
         $this->_form = new DA_Form_Auth_Login();
     }
+    public function doLogout()
+    {
+        if(DA_Plugin_Auth::logout()){
+            $this->flashMessenger->addMessage('Você saiu do sistema com sucesso!');
+           
+            return true;
+        }    
+    }
     
     public function doLogin()
     {
@@ -122,16 +130,12 @@ class DA_Helper_Login extends Zend_Controller_Action_Helper_Abstract
                     $password = $this->_form->getValue('password');  // Senha
                     $remember = $this->_form->getValue('remember');  // Estado persistente?
         
-        
+                    $urlRedir = $session->url_redir;
+                    
                     // Executa o processo de autenticação
-                    if($userId = DA_Plugin_Auth::doAuth($username, $password)){
-        
-                        // Persiste a sessão em um cookie
-                        if($remember){
-                            DA_Plugin_Auth::doPersist($userId, 30);
-                        }
-        
-                        if ($urlRedir = $session->url_redir) {
+                    if($userId = DA_Plugin_Auth::doAuth($username, $password, $urlRedir, $remember)){
+       
+                        if ($urlRedir) {
                             unset($session->url_redir);
                             return $this->_redirect($urlRedir);
                         }
@@ -141,6 +145,7 @@ class DA_Helper_Login extends Zend_Controller_Action_Helper_Abstract
                     }else{
         
                         $this->flashMessenger->addMessage('Usuário ou senha inválidos!');
+                        
                         return $this->_redirect($this->view->url());
                     }
         

@@ -30,18 +30,25 @@
 
 class Admin_LoginController extends Zend_Controller_Action
 {
+    /**
+     * Inicialização dos recursos
+     *
+     * @see Zend_Controller_Action::init()
+     */
+    public function init ()
+    {
+        $this->_login = new DA_Helper_Login($this);
+    }
     
     /**
      * Apaga a identidade do cliente, se ela existir
      */
     public function logoutAction ()
     {
-        if(DA_Plugin_Auth::logout()){
-            $this->_helper->flashMessenger('Você saiu do sistema com sucesso!');
+        if($this->_login->doLogout()){
+            // Redireciona para o formulário de login
+            return $this->_redirect('/login/');
         }
-        // Redireciona para o formulário de login
-        return $this->_redirect('/login/');
-    
     }
     
     
@@ -50,8 +57,7 @@ class Admin_LoginController extends Zend_Controller_Action
      */
     public function indexAction ()
     {
-        $login = new DA_Helper_Login($this);
-        if($login->doLogin()){
+        if($this->_login->doLogin()){
             // Redireciona para a ação adequada
             return $this->_redirect('/');
         }
