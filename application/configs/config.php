@@ -34,6 +34,8 @@ return array(
         ),
         'email'      => "dev@desafioalpha.com.br",
         'staticSalt' => 'm2-03jtgjdsp0vm2dj9sa904T$#@',
+        'projectName' => 'Desafio Alpha',
+        'dateFormat'  => 'd/m/Y H:i:s',
     ),
     
     'host'        => "desafio_alpha",
@@ -62,8 +64,8 @@ return array(
         /* Rotas */
         'router'      => array(
             'routes'  => array(
-                'www' => array(
-                    'route'    => "admin.desafio_alpha",
+                'subdomains' => array(
+                    'route'    => ":module.desafio_alpha",
                 )
             )
         )

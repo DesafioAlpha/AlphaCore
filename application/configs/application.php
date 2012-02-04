@@ -34,7 +34,7 @@ return array_replace_recursive(array(
             'save_path'        => APPLICATION_PATH. "/../temp/session",
             'cookie_httponly'  => true,
             'use_only_cookies' => true,
-            'name'             => 'SID' // SessionId
+            'name'             => 'SID' // Session ID
         )
     ),
     
@@ -58,7 +58,7 @@ return array_replace_recursive(array(
         
             'prefixDefaultModule' => true, 
             'defaultModule'       => 'pub', 
-            'moduleDirectory'     => APPLICATION_PATH . "/modules", 
+            'moduleDirectory'     => APPLICATION_PATH . "/modules",
             'params'              => array(
                 'disableOutputBuffering'    => false,
                 'displayExceptions'         => 0
@@ -80,29 +80,24 @@ return array_replace_recursive(array(
         /* Rotas */
         'router' => array(
             'routes' => array(
-                'www' => array(
-                    'type'     => "Zend_Controller_Router_Route_Hostname", 
+                'subdomains' => array(
+                    'type'     => "Zend_Controller_Router_Route_Hostname",
+                    'defaults' => array(
+                        'module' => 'admin',
+                    ), 
                     'chains' => array(
                         'index' => array(
                             'type'     => "Zend_Controller_Router_Route", 
-                            'route'    => ":controller/:action/*", 
+                            'route'    => ":@controller/:@action/*", // suporte a tradução da rota
                             'defaults' => array(
-                                'module'     => 'pub',
+                                'module'     => 'admin',
                                 'controller' => 'index', 
                                 'action'     => 'index'
                             )
                         )
                     )
-                ),
-//                 'equipe' => array(
-//                     'type'     => "Zend_Controller_Router_Route",
-//                     'route'    => "/equipe/:controller/:action/*",
-//                     'defaults' => array(
-//                         'module'     => 'equipe',
-//                         'controller' => 'index',
-//                         'action'     => 'index'
-//                     )
-//                 )                
+                ) ,
+                 
             )
         )
     )
