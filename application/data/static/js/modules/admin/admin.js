@@ -1,4 +1,3 @@
-<?php
 /**
  * Desafio Alpha - AlphaCore
  * 
@@ -19,12 +18,31 @@
  *
  * @category     Desafio Alpha
  * @package      DA_Admin
- * @subpackage   Index
- * @file         index.phtml
+ * @file         admin.js
  * @encoding     UTF-8
  * 
  * @author       Desafio Alpha Dev Team <dev@desafioalpha.com.br>
  * @copyright    Copyright (c) 2007-2012 Desafio Alpha (http://desafioalpha.com.br)
  * @license      http://doc.desafioalpha.com.br/legal/gplv3 GPLv3
+ * 
  */
-
+$(function() {
+	dock = $('#dock');
+	if(dock.is('div')){
+		dock.Fisheye({
+			maxWidth  : 40,
+			items 	  : 'a',
+			itemsText : 'span',
+			container : '.dock_container',
+			itemWidth : 60,
+			proximity : 40,
+			alignment : 'left',
+			valign	  : 'bottom',
+			halign    : 'center'
+		}).find('.dock-item').bind('mouseover', function() {
+			$("#menu_detail").html($(this).attr('title'));
+		}).bind('mouseout', function() {
+			$("#menu_detail").html('');
+		});
+	}
+});

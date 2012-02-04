@@ -78,4 +78,8 @@ return array(
     // Mensagens de erro de validação
     'dateFalseFormat'    => "O valor '%value%' não está no formato DD/MM/AAAA ou é inválido", 
     
+    // I18n das rotas
+    'reports'            => 'relatorios',
+    'questions'          => 'desafios',
+    'agenda'             => 'calendar',
 );

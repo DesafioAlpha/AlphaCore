@@ -1,0 +1,194 @@
+@charset "UTF-8";
+/**
+ * Desafio Alpha - AlphaCore
+ * 
+ * LICENÇA:
+ * 
+ * Este software é distribuído sob a licença GNU General Public License - Versão 3. 
+ * O conteúdo desta licença está disponível no arquivo LICENSE.txt e nos endereços web 
+ * http://doc.desafioalpha.com.br/legal e http://www.gnu.org/licenses/gpl.html
+ * 
+ * Qualquer dúvida sobre este arquivo fonte e como usá-lo refira-se à 
+ * documentação anexada à este pacote de software ou envie um email 
+ * para dev@desafioalpha.com.br
+ * 
+ * ESTE SOFTWARE É DISPONIBILIZADO 'NA FORMA COMO ESTÁ', O AUTOR NÃO OFERECE 
+ * NENHUMA GARANTIA, EXPLÍCITA OU IMPLÍCITA, SOBRE PRECISÃO E CONFIABILIDADE.
+ * SINTA-SE LIVRE PARA VER, MODIFICAR E REDISTRIBUIR, SOB AS CONDIÇÕES DA 
+ * LICENÇA APLICADA. 
+ *
+ * @category     Desafio Alpha
+ * @package      DA_Admin
+ * @subpackage   Css
+ * @file         admin.css
+ * @encoding     UTF-8
+ * 
+ * @author       Desafio Alpha Dev Team <dev@desafioalpha.com.br>
+ * @copyright    Copyright (c) 2007-2012 Desafio Alpha (http://desafioalpha.com.br)
+ * @license      http://doc.desafioalpha.com.br/legal/gplv3 GPLv3
+ * 
+ */
+
+/**
+ * Folha de estilos para o módulo 'admin'
+ */
+html,body {
+    background: #f2f2f2;
+}
+
+*,div,span,a { 
+/*     outline: 1px dashed gray;     */
+}
+
+#admin_header {
+    font-weight: bold;
+    z-index: 1;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    margin-top: 4px;
+    overflow: hidden;
+    background-color: #e1e1e1;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+
+    background: -moz-linear-gradient(top, #eeeeee 0%, #e1e1e1 100%);
+    background: -webkit-linear-gradient(top, #eeeeee 0%, #e1e1e1 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #eeeeee), color-stop(1, #e1e1e1));
+    background: -o-linear-gradient(top, #eeeeee 0%, #e1e1e1 100%);
+    background: -ms-linear-gradient(top, #eeeeee 0%, #e1e1e1 100%);
+    background: linear-gradient(top, #eeeeee 0%, #e1e1e1 100%);
+
+    padding: 3px 0px 4px 0px;
+
+}
+
+#admin_header a.logo,#admin_header span.time {
+    color: #eb5523;
+}
+
+#admin_header a.logo {
+    position: relative; z-index : 20;
+    margin-left: 20px;
+    font-size: 1.1em;
+    display: block;
+    float: left;
+    background: url("/media/logos/logo_header_mini.png") left center
+        no-repeat;
+    padding: 6px 6px 6px 50px;
+    vertical-align: middle;
+    text-decoration: none;
+    width: 10%;
+    margin-left: 20px;
+    z-index: 20;
+}
+
+#admin_header div.header {
+    margin-top: 5px;
+    width: 100%;
+    position: absolute;
+}
+
+#admin_header div.header div.title {
+    position: relative;
+    float: left;
+    left: 50%;
+}
+
+#admin_header div.header div.title h1 {
+    text-shadow: #bbb 2px 2px 2px;
+    font-size: 1.1em;
+    position: relative;
+    display: block;
+    left: -50%;
+    font-size: 1.1em;
+}
+
+#admin_header div.header span.time {
+    margin: 2px 15px 0 10px;
+    float : right;
+    font-style: italic;
+    float: right;
+}
+
+#admin_header a.logout {
+    float: right;
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin: 0 15px 0 0;
+    background: url("/media/icons/logout.png") no-repeat;
+}
+#breadcrumbs {
+    padding: 15px;
+}
+#floated_band {
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 100%;
+    background: #eb5523;
+}
+
+#admin_container {
+    width: 900px;
+    position: relative;
+    margin: 0 auto;
+}
+
+#admin_content {
+    overflow: hidden;
+    padding: 25px;
+}
+
+#admin_content .login_content {
+    display: block;
+    padding: 15px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#dock {
+    margin-top: 20px;
+    position: relative;
+}
+
+.dock_container {
+    position: relative;
+    height: 70px;
+}
+
+a.dock-item {
+    display: block;
+    width: 100px;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+}
+
+.dock-item span {
+    display: none;
+    padding-left: 20px;
+}
+
+.dock-item img {
+    border: 0;
+    margin: 10px 10px 10px 0px;
+    width: 100%;
+}
+
+#menu_detail {
+    width: 100%;
+    height: 1.3em;
+    text-align: center;
+    font-style: italic;
+    color: #444;
+
+}

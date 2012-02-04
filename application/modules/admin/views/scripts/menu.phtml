@@ -19,8 +19,7 @@
  *
  * @category     Desafio Alpha
  * @package      DA_Admin
- * @subpackage   Index
- * @file         index.phtml
+ * @file         menu.phtml
  * @encoding     UTF-8
  * 
  * @author       Desafio Alpha Dev Team <dev@desafioalpha.com.br>
@@ -28,3 +27,29 @@
  * @license      http://doc.desafioalpha.com.br/legal/gplv3 GPLv3
  */
 
+/**
+ * Partial para renderização personalizada do menu para o plugin jquery.fisheye
+ */
+$html = array();
+
+$page = $this->container->findBy('active', true); 
+if(!empty($page->pages)){
+    
+    $html[] = '<div id="dock"><div class="dock_container">';
+    
+    foreach ($page->pages as $subpage) 
+    {
+        if($subpage->isVisible() && $this->navigation()->accept($subpage) && $href = $subpage->getHref()){
+            
+            $html[] = "<a class=\"dock-item\" href=\"{$href}\" title=\"{$subpage->getLabel()}\">";
+            $html[] = '<span></span>';
+            $html[] = '<img src="'.STATIC_URL . '/media/icons/menu/'. $subpage->__get('icon').'.png" alt="">';
+            $html[] = "</a>";
+            
+        }
+    }
+    
+    $html[] = '</div></div><div id="menu_detail"></div>';
+}
+
+echo join(PHP_EOL, $html);

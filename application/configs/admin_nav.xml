@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+    <nav>
+        <login>
+            <label>Acesso administrativo</label>
+            <module>admin</module>
+            <controller>login</controller>
+            <action>index</action>
+            <visible>false</visible>
+        </login>
+        <control>
+            <label>Painel de controle</label>
+            <module>admin</module>
+            <controller>index</controller>
+            <action>index</action>
+            <resource>admin</resource>
+            <pages>
+                <reports>
+                    <label>Relatórios</label>
+                    <module>admin</module>
+                    <controller>reports</controller>
+                    <action>index</action>
+                    <icon>reports</icon>
+                    <resource>admin</resource>
+                </reports>
+                <questions>
+                    <label>Desafios</label>
+                    <module>admin</module>
+                    <controller>questions</controller>
+                    <action>index</action>
+                    <icon>questions</icon>
+                    <resource>admin</resource>
+                    <pages>
+                        <database>
+                            <label>Banco de dados de Desafios</label>
+                            <module>admin</module>
+                            <controller>questions</controller>
+                            <action>database</action>
+                            <icon>questions_db</icon>
+                            <resource>admin</resource>
+                        </database>
+                    </pages>
+                </questions>
+            </pages>
+        </control>
+    </nav>
+</configdata>

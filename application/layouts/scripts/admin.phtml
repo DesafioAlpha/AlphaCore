@@ -1,10 +1,43 @@
-<?php echo $this->doctype() . "\n" ?>
+<?php echo $this->doctype()?>
 <html>
 <head>
-    <?php echo $this->headMeta() . "\n" ?>
-    <?php echo $this->headTitle() . "\n" ?>
+<?php $this->layout()->getView()->resourceLoader()->appendCss("modules/admin/admin.css", 'all')
+                                                  ->appendScript("modules/admin/admin.js")
+                                                  ->appendJqueryPlugin(array(
+                                                      'jquery.fisheye-iutil.min',
+                                                  )); 
+      $this->headTitle()->prepend($this->layout()->getView()->title->title)
+?>
+<?php echo $this->headMeta() ?> 
+<?php echo $this->headLink() ?> 
+<?php echo $this->headScript() ?> 
+<?php echo $this->headTitle() ?> 
 </head>
 <body>
-    <?php echo $this->layout()->content . "\n" ?>
+    <header>
+        <div id="floated_band"></div>
+        <div id="admin_header">
+            <a href="" class="logo"><?php echo $this->layout()->getView()->projectName ?></a>
+            <div class="header">
+                <div class="title">
+                    <h1><?php echo $this->layout()->getView()->title->title ?></h1>
+                </div>
+                <?php if(Zend_Auth::getInstance()->hasIdentity()){ ?><a href="/login/logout/" title="Sair" class="logout"></a><?php } ?>
+                <span class="time"><?php echo date($this->layout()->getView()->dateFormat, time()) ?></span>
+            </div>
+        </div>
+        <div id="breadcrumbs"><?php echo $this->navigation()->breadcrumbs()->render() ?></div>
+    </header>
+    <div id="admin_container">
+    <div id="admin_menu">
+        <?php 
+        $partial = array('menu.phtml', 'admin');
+        echo $this->navigation()->menu()->setPartial($partial)->render() ;
+        ?>
+    </div>
+    <div id="admin_content">
+        <?php echo $this->layout()->content . "\n"; ?>
+    </div>
+    </div>
 </body>
 </html>

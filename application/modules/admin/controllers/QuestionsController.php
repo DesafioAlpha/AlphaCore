@@ -19,8 +19,8 @@
  *
  * @category     Desafio Alpha
  * @package      DA_Admin
- * @subpackage   Index
- * @file         index.phtml
+ * @subpackage   Questions
+ * @file         QuestionsController.php
  * @encoding     UTF-8
  * 
  * @author       Desafio Alpha Dev Team <dev@desafioalpha.com.br>
@@ -28,3 +28,15 @@
  * @license      http://doc.desafioalpha.com.br/legal/gplv3 GPLv3
  */
 
+class Admin_QuestionsController extends Zend_Controller_Action
+{
+    public function indexAction()
+    {
+        
+    }
+    
+    public function databaseAction()
+    {
+        
+    }
+}
