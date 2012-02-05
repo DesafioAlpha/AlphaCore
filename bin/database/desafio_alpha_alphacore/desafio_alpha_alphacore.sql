@@ -62,7 +62,7 @@ COMMENT = 'Credenciais usadas na autenticação da aplicação';
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `desafio_alpha_alphacore`.`token` (
   `token_id` INT NOT NULL AUTO_INCREMENT ,
-  `creation_time` TIMESTAMP NULL DEFAULT NULL ,
+  `expiration_time` TIMESTAMP NULL DEFAULT NULL ,
   `user_id` VARCHAR(40) NULL DEFAULT NULL ,
   `token` VARCHAR(40) NULL DEFAULT NULL ,
   `token_salt` VARCHAR(40) NULL DEFAULT NULL ,

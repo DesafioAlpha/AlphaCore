@@ -43,13 +43,16 @@ class DA_Plugin_Auth extends Zend_Controller_Plugin_Abstract
     /**
      * @var array
      */
-    
     private $_roles;
+    
     /**
      * @var Zend_Session_Namespace
      */
     private $_session;
     
+    /**
+     * @var array Campos a serem buscados no BD e gravados na sessão
+     */
     public static $_userFields = array('user_id', 'role_id', 'last_login');
     
     /**
@@ -63,67 +66,91 @@ class DA_Plugin_Auth extends Zend_Controller_Plugin_Abstract
         $this->_session = Zend_Registry::get('Zend_Session');
         
         $view = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('view');
-        $view->navigation()->setAcl($acl);
         
         $this->_roles = array(
             array('name' => 'guest',  'parents' => null),    
             array('name' => 'team',   'parents' => 'guest'),
             array('name' => 'person', 'parents' => 'team'),
-            array('name' => 'school',  'parents' => null),
-            array('name' => 'admin',  'parents' => array('team','school')),
+            array('name' => 'school', 'parents' => null),
+            array('name' => 'admin',  'parents' => array('team', 'school')),
         );
         
-        $role = 'guest';
+        $role = 'guest'; // Role padrão
         
+        // Expõe a ACL para o navigation
+        $view->navigation()->setAcl($acl)
+                           ->setRole($role);
+        
+        /* Define as permissões */
         foreach ($this->_roles as $roleData){
-            $acl->addRole($roleData['name'], $roleData['parents']);
-            $acl->addResource($roleData['name']);
-            $acl->allow($roleData['name'], $roleData['name']);
+            $acl->addRole($roleData['name'], $roleData['parents'])
+                ->addResource($roleData['name'])
+                ->allow($roleData['name'], $roleData['name']);
+        }
+                
+        if(!$auth->hasIdentity() && isset($_COOKIE['RID'])){ // Verifica por um cookie de persistência
+            self::doCookieAuth($_COOKIE['RID']);
         }
         
-        Zend_Registry::set('Zend_Acl', $acl);
-        
-        if(!$auth->hasIdentity()){ // O cliente não está autenticado
-            
-            if(isset($_COOKIE['RID'])){ // Verifica por um cookie de persistência
-                $tokenData = $_COOKIE['RID'];
-                $token = new DA_Model_Dbtable_Token();
-                if($userId = $token->getUser($tokenData)){
-                    
-                    $user = new DA_Model_Dbtable_User();
-                    $authLog = new DA_Model_Dbtable_AuthLog();
-                    
-                    if($userData = $user->getUserData($userId, self::$_userFields)){
-                        Zend_Auth::getInstance()->getStorage()->write($userData);    
-                        $authLog->addLog($_SERVER['REQUEST_URI'], null, 0, $userId, $tokenData, 0, 1, 1);
-                        
-                    }
-
-                }
-            }
+        /* Define restrições para os links */
+        if($auth->hasIdentity() && $role = $this->_roles[$auth->getIdentity()->role_id]['name']){ //
+           $view->navigation()->setRole($role);                
         }
         
-        if($auth->hasIdentity()){
-            
-            if($role = $this->_roles[$auth->getIdentity()->role_id]['name']){ //
-                
-                $module     = $request->getModuleName();
-                $controller = $request->getControllerName();
-                $action     = $request->getActionName();
-                
-                $view->navigation()->setRole($role);                
-                
-            }
-        }
-        
-        
+        /* Verifica se o cliente está autorizado para o recurso em questão */
         if($thisPage = $view->navigation()->findBy('active', true)){
-            if($thisPage->getResource() && !$acl->isAllowed($role, $thisPage->getResource())){
-                $this->_session->url_redir = $_SERVER['REQUEST_URI'];
-                   $request->setControllerName('error')->setActionName('forbidden');
+            if($thisPage->getResource() && !$acl->isAllowed($role, $thisPage->getResource())){ // Proibido!
+            
+                // Passa a URL requisitada para a próxima autenticação
+                if(!$auth->hasIdentity()){
+                    $this->_session->url_redir = $_SERVER['REQUEST_URI'];
+                }
+                
+                // Exibe o erro de autorização
+                $request->setControllerName('error')->setActionName('forbidden');
             }
         }
-
+    }
+    
+    /**
+     * Autentica o cliente a partir de um token de persistência
+     * 
+     * @param  string $tokenData
+     * 
+     * @return boolean
+     */
+    public static function doCookieAuth($tokenData)
+    {
+        $token = new DA_Model_Dbtable_Token();
+        if($userId = $token->getUser($tokenData)){
+        
+            $user    = new DA_Model_Dbtable_User();
+            $authLog = new DA_Model_Dbtable_AuthLog();
+        
+            if($userData = $user->getUserData($userId, self::$_userFields)){
+                /* Remove o token anterior e cria um novo */
+                $token->removeToken($tokenData);
+                self::doPersist($userId, 30);
+        
+                Zend_Auth::getInstance()->getStorage()->write($userData);
+        
+                // Registra a ação
+                $authLog->addLog($_SERVER['REQUEST_URI'], null, 0, $userId, $tokenData, 0, 1, 1);
+            }
+            
+            return true;
+            
+        }else{
+            // Tarefa de manutenção: remove todos os tokens vencidos
+            // Esta ação foi desativada pois aumentaria a efetividade de um ataque DoS
+            //                     $token->removeOld ();
+        
+            // Apaga o cookie e toda informação de autenticação
+            self::logout(true);
+            
+            return false;
+            
+        }
     }
     
     /**
@@ -207,26 +234,35 @@ class DA_Plugin_Auth extends Zend_Controller_Plugin_Abstract
     public static function doPersist($userId, $days)
     {
         $authToken = new DA_Model_Dbtable_Token();
+        $expiration = time() + 3600*24*$days;
         
-        $token = $authToken->addToken($userId);
+        $token = $authToken->addToken($userId, $expiration); // Cria um token para este user_id
         
         // Esta data é definida a partir do horário do servidor, podendo ou não ser condizente com o horário do cliente
-        setcookie('RID', "$token", time() + 3600*24*$days, '/');
+        setcookie('RID', "$token", $expiration, '/');
     }
     
     /**
      * Elimina qualquer autenticação do cliente
      * 
+     * @param  boolean $ignoreDelete Decide se deve ignorar a exclusão do token no BD (proteção contra ataques DoS)
+     * 
      * @return boolean
      */
-    public static function logout()
+    public static function logout($ignoreDelete = false)
     {
-        $auth = Zend_Auth::getInstance();        
+        $auth = Zend_Auth::getInstance();   
+          
+        /* Remove o token do BD, se houver um */
+        if(!$ignoreDelete && $tokenData = $_COOKIE['RID']){
+            $token = new DA_Model_Dbtable_Token();
+            $token->removeToken($tokenData);
+        }
+           
+        setcookie('RID', FALSE, 1, '/'); // Apaga o cookie de Persistência
         
         if($auth->hasIdentity()){ // Caso exista alguma identidade, apaga-a e exibe uma mensagem de sucesso
 
-            setcookie('RID', FALSE, 1, '/'); // Apaga o cookie de Persistência
-            
             /* Registra a saída */
             $authLog = new DA_Model_Dbtable_AuthLog();
             $urlAction = $_SERVER['REQUEST_URI'];
