@@ -96,8 +96,8 @@ class DA_Plugin_BuildUp extends Zend_Controller_Plugin_Abstract
              ->headTitle($constants['projectName']); // Define o título padrão para todas as páginas
         
         /* Ícones para as páginas */
-        $view->headLink(array('rel' => 'favicon', 'href' => STATIC_URL . '/media/icons/favicon_default.ico', 'type' => 'image/x-icon' ))
-             ->headLink(array('rel' => 'shortcut icon', 'href' => STATIC_URL . '/media/icons/favicon_default.ico', 'type' => 'image/x-icon' ));
+        $view->headLink(array('rel' => 'favicon', 'href' => STATIC_URL . '/media/icons/favicon_default.ico', 'type' => 'image/x-icon' ), 'APPEND')
+             ->headLink(array('rel' => 'shortcut icon', 'href' => STATIC_URL . '/media/icons/favicon_default.ico', 'type' => 'image/x-icon' ), 'APPEND');
         
        
         $view->projectName = $constants['projectName'];

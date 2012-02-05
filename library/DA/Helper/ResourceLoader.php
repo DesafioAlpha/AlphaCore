@@ -30,8 +30,10 @@
 /**
  * Permite o carregamento de recursos dinamicamente.
  * 
- * Encapsula métodos para carregamento de scripts, folhas de estilo, entre outros durante 
- * toda a pilha da aplicação.
+ * Encapsula métodos para carregamento de scripts, folhas de estilo, entre outros, durante 
+ * a pilha da aplicação.
+ * Para evitar prejuízos ao desempenho, estes métodos não verificam se o recurso a ser carregado
+ * realmente existe, portanto seja cuidadoso ao adicioná-los.
  *
  * @package      DA_Helpers
  * @subpackage   ResourceLoader
@@ -53,46 +55,49 @@ class DA_Helper_ResourceLoader extends Zend_View_Helper_Abstract
         return $this;
     }
     
-    /**
-     * @see Zend_Controller_Action_Helper_Abstract::preDispatch()
-     */
     public function init()
     {
         $this->_moduleName =  Zend_Controller_Front::getInstance()->getRequest()->getModuleName();        
         $this->_controllerName =  Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
-        $this->_prepareCss();
-        $this->_prepareJs();
+        
+        $this->_prepareCss()
+             ->_prepareJs();
         
     }    
 
     /**
+     * Carrega as dependências globais de folhas de estilos
      * 
+     * @return DA_Helper_ResourceLoader
      */
     private function _prepareCss()
     {    
         if(!$this->_cssPrepared){
-            
-            $this->appendCss('base.css', 'all');
-            $this->appendCss("modules/{$this->_moduleName}/{$this->_controllerName}.css", 'all');
-            $this->appendCss('print.css', 'print');
-            //$this->appendCss('3rd_party/jquery-ui.css');
+            $this->appendCss('base.css', 2, 'all');
+            $this->appendCss("modules/{$this->_moduleName}/{$this->_controllerName}.css", 4, 'all');
+            $this->appendCss('print.css', 1000, 'print');
             
             $this->_cssPrepared = true;
         }
+        
+        return $this;
     } 
     
     /**
+     * Carrega as dependências globais de scripts
      * 
+     * @return DA_Helper_ResourceLoader
      */
     private function _prepareJs()
     {   
          if(!$this->_jsPrepared){             
              $this->appendScript("3rd_party/jquery/jquery.min.js");             
              $this->appendScript('base.js');
-             //$this->appendJqueryPlugin('jquery-ui.min');
              
              $this->_jsPrepared = true;
          }   
+         
+         return $this;
     }
     
 	/**
@@ -105,25 +110,27 @@ class DA_Helper_ResourceLoader extends Zend_View_Helper_Abstract
         
         $this->view->headScript()->appendFile(STATIC_URL . "/js/" . $script_path);
         
-        return $this; // Retorna o objeto para métodos sequenciais
+        return $this;
         
     }
     
     /**
+     * Anexa uma folha de estilos
+     * 
      * @param array|string $css_path
      * @return DA_Helper_ResourceLoader
      */
-    public function appendCss($css_path, $media = 'screen'){
+    public function appendCss($css_path, $index, $media = 'screen'){
         
         if(is_array($css_path)){
             
             foreach ($css_path as $path){
-                $this->appendCss($path);
+                $this->appendCss($path); // Chamada recursiva para cada arquivo encontrado
             }
             
         }else{
             
-            $this->view->headLink()->appendStylesheet(STATIC_URL . "/css/" . $css_path, $media);
+            $this->view->headLink()->offsetSetStylesheet($index, STATIC_URL . "/css/" . $css_path, $media);
             
         }
         
