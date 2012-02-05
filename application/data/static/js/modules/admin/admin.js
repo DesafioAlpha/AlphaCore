@@ -39,7 +39,7 @@ $(function() {
 			alignment : 'left',
 			valign	  : 'bottom',
 			halign    : 'center'
-		}).find('.dock-item').bind('mouseover', function() {
+		}).find('a').bind('mouseover', function() {
 			$("#menu_detail").html($(this).attr('title'));
 		}).bind('mouseout', function() {
 			$("#menu_detail").html('');

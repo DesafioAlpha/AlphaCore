@@ -32,16 +32,21 @@
  */
 $html = array();
 
-$page = $this->container->findBy('active', true); 
+$page = $this->container->findBy('active', true); // Obtém a página ativa
+
 if(!empty($page->pages)){
     
+    // Monta o container para o menu personalizado
     $html[] = '<div id="dock"><div class="dock_container">';
     
     foreach ($page->pages as $subpage) 
     {
+        /* Lista as subpáginas que são visíveis para o cliente atual */
         if($subpage->isVisible() && $this->navigation()->accept($subpage) && $href = $subpage->getHref()){
             
-            $html[] = "<a class=\"dock-item\" href=\"{$href}\" title=\"{$subpage->getLabel()}\">";
+            ($title = $subpage->getTitle()) || $title = $subpage->getLabel(); // Usa o title, se informado, caso contrário usa a label
+            
+            $html[] = "<a href=\"$href\" title=\"$title\">";
             $html[] = '<span></span>';
             $html[] = '<img src="'.STATIC_URL . '/media/icons/menu/'. $subpage->__get('icon').'.png" alt="">';
             $html[] = "</a>";

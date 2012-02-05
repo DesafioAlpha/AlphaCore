@@ -34,18 +34,16 @@ class DA_Model_Dbtable_User extends Zend_Db_Table_Abstract
     
     public function getUserData($userId, $fields)
     {
-        $userData = new stdClass();
-        
         $select = $this->select();
         $select->from($this, $fields)
                ->where('user_id = :user_id')
                ->bind(array(':user_id' => $userId));
         
         if($result = $this->fetchRow($select)->toArray()){
-            foreach ($result as $datum => $userDatum){
-                $userData->{$datum} = $userDatum; 
-            }
+            
+            $userData = (object) $result; // Converte o array para uma instância de stdClass();
             $userData->login_time = time();
+            
             return $userData;
         }
         

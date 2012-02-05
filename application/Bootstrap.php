@@ -73,6 +73,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->getApplication()->setAutoloaderNamespaces(array('DA_'));
         return $this;
     }
+    
+    /**
+     * Configura o cache da aplicação 
+     */
     protected function _initCache ()
     {
         // Opções do frontend
@@ -98,42 +102,37 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
     
     /**
-     * Executa as tarefas para a internacionalização (I18n) do sistema 
+     * Executa as tarefas para a internacionalização (I18n) e localização (L10n) do sistema 
      */
     protected function _initI18n ()
     {
     
         // Obtém o locale padrão definido no arquivo de configuração
         $locale_default = $this->getOption('locale');
-               
-        try {
-           
-            // Instancia o Zend_Locale
-            $locale = new Zend_Locale($locale_default);
-            
-            // Instancia um objeto de Zend_Translate e adiciona o dicionário em português brasileiro (pt_BR)
-            $translate = new Zend_Translate(array(
-                'adapter' => 'Array',
-                'locale'    => 'pt_BR',
-                'content' => realpath(APPLICATION_PATH . '/language/pt_BR/'),
-            ));
-            
-            // Adiciona o dicionário em inglês americano (en_US)
-            $translate->addTranslation(array(
-                'locale'    => 'en_US',
-                'content' => realpath(APPLICATION_PATH . '/language/en_US/'),
-            ));
 
-            // Define o 'locale' atual
-            $translate->setLocale($locale);
-            
-            // Adiciona estas duas instâncias ao Zend_Registry para que possam ser acessadas por toda a aplicação
-            Zend_Registry::set('Zend_Locale', $locale);
-            Zend_Registry::set('Zend_Translate', $translate);
-                        
-        } catch (Exception $e){
-        }
+        // Instancia o Zend_Locale
+        $locale = new Zend_Locale($locale_default);
+        
+        // Instancia um objeto de Zend_Translate e adiciona o dicionário em português brasileiro (pt_BR)
+        $translate = new Zend_Translate(array(
+            'adapter' => 'Array',
+            'locale'    => 'pt_BR',
+            'content' => realpath(APPLICATION_PATH . '/language/pt_BR/'),
+        ));
+        
+        // Adiciona o dicionário em inglês americano (en_US)
+        $translate->addTranslation(array(
+            'locale'    => 'en_US',
+            'content' => realpath(APPLICATION_PATH . '/language/en_US/'),
+        ));
 
+        // Define o 'locale' atual
+        $translate->setLocale($locale);
+        
+        // Adiciona estas duas instâncias ao Zend_Registry para que possam ser acessadas por toda a aplicação
+        Zend_Registry::set('Zend_Locale', $locale);
+        Zend_Registry::set('Zend_Translate', $translate);
+        
     }
     
     /**
@@ -152,29 +151,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     protected function _initHelpers ()
     {
-        
-        ///$this->_view->addHelperPath(APPLICATION_PATH . 'Pub/views/helpers/Header', 'Pub_View_Helper_Header');
-        
-        $resourceLoader = new DA_Helper_ResourceLoader();
-        $this->view->registerHelper($resourceLoader, 'resourceLoader');
-        
-        Zend_Controller_Action_HelperBroker::addPrefix('DA_Helper');
-//         Zend_Controller_Action_HelperBroker::addHelper(new DA_Helper_ResourceLoader);
+        $this->view->setHelperPath('DA/Helper/', "DA_Helper_");
         
     }
-    
-    /**
-     * Inicializa a configurações de conteúdo para toda a aplicação.
-     *
-     * Define as configurações de codificação, meta tags, includes e aparência das páginas para navegadores e
-     * search engines e muito mais.
-     */
-    protected function _initContents ()
-    {        
-        
-                
-    }
-    
-    
-    
 }
