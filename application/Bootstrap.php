@@ -61,6 +61,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $host = $this->getOption('host'); //
         
         define('STATIC_URL', "http://static.$host"); // Define o caminho raíz para entrega de conteudo estático
+        define('APP_URL',    "http://app.$host"); // Define o caminho raíz para entrega de scripts, webservices...
     }
     
     /**

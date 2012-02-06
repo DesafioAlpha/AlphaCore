@@ -108,7 +108,7 @@ class DA_Helper_ResourceLoader extends Zend_View_Helper_Abstract
      */
     public function appendScript($script_path){
         
-        $this->view->headScript()->appendFile(STATIC_URL . "/js/" . $script_path);
+        $this->view->headScript()->appendFile(APP_URL . "/js/" . $script_path);
         
         return $this;
         
