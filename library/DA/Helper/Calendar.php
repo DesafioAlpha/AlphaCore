@@ -105,23 +105,26 @@ class DA_Helper_Calendar extends Zend_View_Helper_Abstract
         $this->_translator = Zend_Registry::get('Zend_Translate');
         
     }
+    
     /**
      * Constrói calendários para o intervalo de eventos. 
      */
     public function buildHtml()
     {
-        $this->_html = $this->_html_descrs = ''; // Limpa o buffer
-        
-        $date = clone $this->getStartDate(); // Clona a primeira data
+        if($this->getStartDate() instanceof DateTime && $this->getEndDate() instanceof DateTime){
+            $this->_html = $this->_html_descrs = ''; // Limpa o buffer
             
-        $oneMonth = new DateInterval('P1M'); // Intervalo de um mês
-        $date->setDate($date->format('Y'), $date->format('m'), 1); // Vai para o 1º dia do mês
-    
-        while ($date <= $this->getEndDate()){ // Gera calendários até o mês do último evento 
-    
-            $this->_buildCalendar($date); // Gera o calendário para o mês    
-            $date->add($oneMonth); // Adiciona um mês
-    
+            $date = clone $this->getStartDate(); // Clona a primeira data
+                
+            $oneMonth = new DateInterval('P1M'); // Intervalo de um mês
+            $date->setDate($date->format('Y'), $date->format('m'), 1); // Vai para o 1º dia do mês
+        
+            while ($date <= $this->getEndDate()){ // Gera calendários até o mês do último evento 
+        
+                $this->_buildCalendar($date); // Gera o calendário para o mês 
+                $date->add($oneMonth); // Adiciona um mês 
+        
+            }
         }
     }
     
@@ -160,13 +163,14 @@ class DA_Helper_Calendar extends Zend_View_Helper_Abstract
             $eventMonth = array($event[0]->format('m'), $event[1]->format('m')); // Mês do início e término
             $eventDay   = array($event[0]->format('d'), $event[1]->format('d')); // Dia do início e término
             $title      = $event[2]; // Título do evento
-            $descr      = $event[3]; // Título do evento
+            $descr      = $event[3]; // Descrição do evento
     
             // Verifica se a data inicial do evento está nesse mês
             if($eventMonth[0] == $month && $eventYear[0] == $year){
     
                 $startDay = $eventDay[0];
                 $this->_countEvents++; // Incrementa o contator de eventos
+                $this->_html_descrs .= '<div class="event_desc event_'.$this->_countEvents.'"><div></div>'.htmlspecialchars($descr).'</div>'; // Descrição do evento
     
             }
     
@@ -188,11 +192,6 @@ class DA_Helper_Calendar extends Zend_View_Helper_Abstract
             // Adiciona o evento à lista
             $events[] = array($startDay, $endDay, $title, $descr, $this->_countEvents);
     
-        }
-        
-        foreach ($events as $event){
-
-            $this->_html_descrs .= '<div class="event_desc event_'.$event[4].'"><div></div>'.htmlspecialchars($event[3]).'</div>';
         }
         
         // Monta a marcação para o calendário
@@ -278,6 +277,7 @@ class DA_Helper_Calendar extends Zend_View_Helper_Abstract
             $endDate = new DateTime($endDate);
         }
     
+        /** TODO: Melhorar isso */
         $mask = array(
             '%start_Y%'   => $startDate->format('Y'),
             '%start_F%'   => $this->_translator->translate($startDate->format('F')),
