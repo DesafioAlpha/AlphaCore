@@ -21,3 +21,4 @@
     Header set Expires "Thu, 15 Apr 2040 20:00:00 GMT"
   </filesMatch>
 </ifModule>
+Options All -Indexes
