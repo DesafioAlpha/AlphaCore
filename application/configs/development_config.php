@@ -28,6 +28,9 @@
  */
 
 return array(
+    'da_config' => array(
+        'loadFromCdn' => false,
+    ),
     'phpSettings' => array(
         'display_startup_errors' => 1,
         'display_errors'         => 1,

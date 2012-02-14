@@ -8,7 +8,6 @@
             <title>Página inicial</title>
             <page_title>Página inicial</page_title>
             <title_show>false</title_show>
-            <route>default</route>
         </home>
         <login>
             <controller>login</controller>
@@ -16,40 +15,34 @@
             <title>Login</title>
             <page_title>Acesse seu painel</page_title>
             <visible>false</visible>
-            <route>default</route>
         </login>
         <agenda>
             <label>Agenda</label>
             <controller>agenda</controller>
             <action>index</action>
             <title>Datas agendadas</title>
-            <route>default</route>
         </agenda>
         <inscricao>
             <label>Inscrições</label>
             <controller>inscricoes</controller>
             <action>index</action>
             <title>Faça a inscrição da sua equipe aqui!</title>
-            <route>default</route>
         </inscricao>
         <contato>
             <label>Contato</label>
             <controller>contato</controller>
             <action>index</action>
             <title>Precisa de ajuda?</title>
-            <route>default</route>
             <pages>
                 <contato>
                     <label>Contato</label>
                     <controller>contato</controller>
                     <action>index</action>
-                    <route>default</route>
                 </contato>
                 <ajuda>
                     <label>Ajuda</label>
                     <controller>contato</controller>
                     <action>ajuda</action>
-                    <route>default</route>
                 </ajuda>
             </pages>
         </contato>
@@ -67,7 +60,6 @@
                     <module>equipe</module>
                     <controller>index</controller>
                     <action>index</action>    
-                    <resource>team</resource>        
                 </equipe>
                 <individual>
                     <label>Individual</label>
@@ -81,21 +73,18 @@
                     <module>equipe</module>
                     <controller>perfil</controller>
                     <action>index</action>    
-                    <resource>team</resource>        
                 </perfil>
                 <estatisticas>
                     <label>Estatísticas</label>
                     <module>equipe</module>
                     <controller>estatisticas</controller>
                     <action>index</action>     
-                    <resource>team</resource>       
                 </estatisticas>
                 <jogo>
                     <label>Jogo</label>
                     <module>equipe</module>
                     <controller>jogo</controller>
                     <action>index</action>   
-                    <resource>team</resource>         
                 </jogo>
             </pages>
         </equipe> 

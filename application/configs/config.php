@@ -28,7 +28,7 @@
  */
 
 return array(
-    'constants' => array(
+    'da_config' => array(
         'weekDayNames' => array(
             'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'
         ),
@@ -36,11 +36,13 @@ return array(
         'staticSalt' => 'm2-03jtgjdsp0vm2dj9sa904T$#@',
         'projectName' => 'Desafio Alpha',
         'dateFormat'  => 'd/m/Y H:i:s',
+        'loadFromCdn' => true,
+        'host'        => "desafio_alpha",
+        
+        'locale'      => 'pt_BR',
+        
     ),
-    
-    'host'        => "desafio_alpha",
-   
-    'locale'      => 'pt_BR',
+
     
     'phpSettings' => array(
         'date'     => array(

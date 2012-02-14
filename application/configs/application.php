@@ -27,7 +27,7 @@
  * @license      http://doc.desafioalpha.com.br/legal/gplv3 GPLv3
  */
 return array_replace_recursive(array(
-     
+
     /* Configurações iniciais do PHP */
     'phpSettings' => array(
         'session' => array(
@@ -45,6 +45,7 @@ return array_replace_recursive(array(
     
     /* Informações da aplicação */
     'appnamespace' => "Application", 
+    
     'bootstrap' => array(
         'class' => "Bootstrap", 
         'path' => APPLICATION_PATH . "/Bootstrap.php"
@@ -96,10 +97,10 @@ return array_replace_recursive(array(
                             )
                         )
                     )
-                ) ,
+                ),
                  
             )
         )
     )
-), include dirname(__FILE__) . '/' . APPLICATION_ENV . '_config.php',  // Mescla com as configurações específicas do ambiente
-   include dirname(__FILE__) . '/' . 'config.php');                    // Mescla com as configurações personalizadas
+), include dirname(__FILE__) . '/' . 'config.php',// Mescla com as configurações personalizadas
+   include dirname(__FILE__) . '/' . APPLICATION_ENV . '_config.php');  // Mescla com as configurações específicas do ambiente

@@ -7,6 +7,7 @@
             <controller>login</controller>
             <action>index</action>
             <visible>false</visible>
+            <resource>guest</resource>
         </login>
         <control>
             <label>Painel de controle</label>
@@ -15,13 +16,42 @@
             <action>index</action>
             <resource>admin</resource>
             <pages>
+                <system>
+                    <label>Sistema</label>
+                    <module>admin</module>
+                    <controller>system</controller>
+                    <action>index</action>
+                    <icon>system</icon>
+                    <pages>
+                        <calendar>
+                            <label>Calendário</label>
+                            <module>admin</module>
+                            <controller>system</controller>
+                            <action>calendar</action>
+                            <icon>calendar</icon>
+                        </calendar>
+                        <users>
+                            <label>Usuários</label>
+                            <module>admin</module>
+                            <controller>system</controller>
+                            <action>users</action>
+                            <icon>users</icon>
+                        </users>
+                        <logs>
+                            <label>Registros</label>
+                            <module>admin</module>
+                            <controller>system</controller>
+                            <action>logs</action>
+                            <icon>logview</icon>
+                        </logs>
+                    </pages>
+                </system>
                 <reports>
                     <label>Relatórios</label>
                     <module>admin</module>
                     <controller>reports</controller>
                     <action>index</action>
                     <icon>reports</icon>
-                    <resource>admin</resource>
                 </reports>
                 <questions>
                     <label>Desafios</label>
@@ -29,7 +59,6 @@
                     <controller>questions</controller>
                     <action>index</action>
                     <icon>questions</icon>
-                    <resource>admin</resource>
                     <pages>
                         <database>
                             <label>Banco de dados de Desafios</label>
@@ -37,8 +66,25 @@
                             <controller>questions</controller>
                             <action>database</action>
                             <icon>questions_db</icon>
-                            <resource>admin</resource>
+                            <toolbar>
+                                <new_question>
+                                    <icon>question</icon>
+                                    <id>new_question</id>
+                                </new_question>
+                            </toolbar>
                         </database>
+                        <view>
+                            <label>Ver desafio</label>
+                            <module>admin</module>
+                            <controller>questions</controller>
+                            <action>view</action>
+                        </view>
+                        <new>
+                            <label>Novo desafio</label>
+                            <module>admin</module>
+                            <controller>questions</controller>
+                            <action>new</action>
+                        </new>
                     </pages>
                 </questions>
             </pages>
