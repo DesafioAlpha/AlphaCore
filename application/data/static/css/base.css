@@ -40,9 +40,8 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
     font-size: 100%;
     vertical-align: baseline;
 }
-
-.print_date {
-    display: none;
+ul, ol {
+    margin-left: 3em;
 }
 /* Ajusta o estilo de elementos da especificação 5 do HTML para navegadores antigos */
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section
@@ -53,15 +52,36 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section
 * {
     font-family: "liberation sans", arial, helvetica, sans-serif;
 }
-
+html {
+    overflow-y: scroll;
+    overflow: -moz-scrollbars-vertical;
+}
 html,body {
     font-size: 14px;
     line-height: 1.5;
 }
 
+/* Classes globais */
+.hand {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+.highlight {
+    background: #FFFFC4;
+}
+
+.print_date {
+    display: none;
+}
+
 p {
     margin: 15px 0px;
 }
+
 /* Estilo para elementos de formulário */
 input[type="text"],input[type="password"] {
     padding: 3px;
@@ -101,17 +121,21 @@ form dl,form dt,form dd {
     margin: 0;
     vertical-align: middle;
 }
-a, a:link, a:active {
+
+a,a:link,a:active {
     color: #eb5523;
     text-decoration: none;
 }
+
 a:hover {
     text-decoration: underline;
 }
+
 a:visited {
     color: #BA431C;
 }
-a.button,a.button:link,a.button:visited,button {
+
+a.button,a.button:link,a.button:visited,button, button:disabled  {
     background: transparent url("/media/bgs/button_right.png") no-repeat
         scroll top right;
     cursor: pointer;
@@ -119,16 +143,18 @@ a.button,a.button:link,a.button:visited,button {
     display: block;
     float: right;
     height: 24px;
-    margin: 0 6px;
+    margin: 0 0 0 6px;
     padding: 0 10px 0 0;
     text-decoration: none;
     color: #000;
     overflow: visible;
 }
+
 button::-moz-focus-inner {
     padding: 0;
-    border: none;  /* overrides extra padding in Firefox */
+    border: none; /* overrides extra padding in Firefox */
 }
+
 a.button span,button span {
     background: transparent url("/media/bgs/button_left.png") no-repeat;
     font-size: 12px;
@@ -159,29 +185,92 @@ a.button:active span,button:active span {
     background-position: bottom left;
     padding: 5px 0 5px 10px;
 }
-
+button:disabled {
+    background-position: top right;
+    color: grey;
+}
+button:disabled span {
+    background-position: top left;
+}
 .errors {
     color: #A51010;
     font-size: 0.9em;
     margin: 0;
     padding: 0;
 }
+div.errors {
+    padding: 10px;
+    text-align: center;
+}
+.success {
+    color: green;
+    text-align: center;
+    padding: 8px;
+}
 
 ul.errors li {
     margin-top: 10px;
 }
 
-
 div.form_buttons {
+        position: relative;
+    
     padding-top: 10px;
     margin-top: 15px;
     width: 100%;
-    border-top: 1px solid #888;
-
+    border-top: 1px solid #bbb;
+    clear: both;
+    overflow: hidden;
 }
+
 span.do_login {
     display: block;
     text-align: center;
     padding: 10px;
     font-size: 1.1em;
+}
+
+/*
+ * jQuery File Upload UI Plugin CSS 6.2
+ * https://github.com/blueimp/jQuery-File-Upload
+ *
+ * Copyright 2010, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/MIT
+ */
+
+.fileinput-button {
+    clear: both;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    float: left;
+    margin-right: 4px;
+}
+
+.fileinput-button input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    border: solid transparent;
+    border-width: 0 0 100px 200px;
+    opacity: 0;
+    filter: alpha(opacity =   0);
+    -moz-transform: translate(-300px, 0) scale(4);
+    direction: ltr;
+    cursor: pointer;
+}
+
+/* Fix for IE 6: */
+* html .fileinput-button {
+    line-height: 22px;
+    margin: 1px -3px 0 0;
+}
+
+/* Fix for IE 7: */
+*+html .fileinput-button {
+    margin: 1px 0 0 0;
 }

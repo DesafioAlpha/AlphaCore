@@ -36,23 +36,21 @@ html,body {
     background: #f2f2f2;
 }
 
-*,div,span,a { /*     outline: 1px dashed gray;     */
-    
-}
-
 #admin_header {
     font-weight: bold;
-    z-index: 1;
-    position: relative;
+    z-index: 10;
+    position: fixed;
     top: 0px;
     left: 0px;
     width: 100%;
+    height: 25px;
     margin-top: 4px;
     overflow: hidden;
     background-color: #e1e1e1;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
-    -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+    -ms-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
     background: -moz-linear-gradient(top, #eeeeee 0%, #e1e1e1 100%);
     background: -webkit-linear-gradient(top, #eeeeee 0%, #e1e1e1 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #eeeeee),
@@ -60,7 +58,8 @@ html,body {
     background: -o-linear-gradient(top, #eeeeee 0%, #e1e1e1 100%);
     background: -ms-linear-gradient(top, #eeeeee 0%, #e1e1e1 100%);
     background: linear-gradient(top, #eeeeee 0%, #e1e1e1 100%);
-    padding: 3px 0px 4px 0px;
+    padding: 4px 0px;
+    white-space: nowrap;
 }
 
 #admin_header a.logo,#admin_header span.time {
@@ -75,17 +74,14 @@ html,body {
     float: left;
     background: url("/media/logos/logo_header_mini.png") left center
         no-repeat;
-    padding: 6px 6px 6px 50px;
+    padding: 0 0 0 40px;
     vertical-align: middle;
     text-decoration: none;
     width: 10%;
-    margin-left: 20px;
     z-index: 20;
-    white-space: nowrap;
 }
 
 #admin_header div.header {
-    margin-top: 5px;
     width: 100%;
     position: absolute;
 }
@@ -102,31 +98,39 @@ html,body {
     position: relative;
     display: block;
     left: -50%;
-    font-size: 1.1em;
 }
 
 #admin_header div.header span.time {
-    margin: 2px 15px 0 10px;
+    margin: 1px 16px 0 10px;
     float: right;
     font-style: italic;
-    float: right;
 }
 
-#admin_header a.logout {
-    float: right;
+#admin_header .logout {
+
+    margin: 0;
+    padding: 0;
+
     display: block;
-    width: 24px;
-    height: 24px;
-    margin: 0 15px 0 0;
-    background: url("/media/icons/logout.png") no-repeat;
+    font-weight: normal;
+    font-size: 0.9em;
+    padding: 2px 38px 0px 0px;
+    
+    float: right;
 }
 
-#breadcrumbs {
-    padding: 15px;
+#admin_header .logout a {
+    position: absolute;
+    right: 10px;
+    top: 3px;
+    display: block;    
+    width: 16px;
+    height: 16px;
+    background: url("/media/icons/sprites/icons.png") -24px -29px no-repeat;
 }
 
 #floated_band {
-    z-index: 2;
+    z-index: 20;
     position: fixed;
     top: 0;
     left: 0;
@@ -136,14 +140,13 @@ html,body {
 }
 
 #admin_container {
-    width: 900px;
+    width: 850px;
     position: relative;
     margin: 0 auto;
 }
 
 #admin_content {
-    overflow: hidden;
-    padding: 25px;
+    margin: 36px auto 60px auto;
 }
 
 #admin_content .login_content {
@@ -152,10 +155,13 @@ html,body {
     background-color: white;
     border-radius: 5px;
     box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+    -ms-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 #dock {
-    margin-top: 20px;
+    margin-top: 100px;
     position: relative;
 }
 
@@ -191,4 +197,99 @@ html,body {
     text-align: center;
     font-style: italic;
     color: #444;
+}
+
+#breadcrumbs {
+    font-size: 0.85em;
+    position: fixed;
+    z-index: 3;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: -moz-linear-gradient(bottom, #bfbfbf 0%, #e1e1e1 100%);
+    background: -webkit-linear-gradient(bottom, #bfbfbf 0%, #e1e1e1 100%);
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #bfbfbf),
+        color-stop(1, #e1e1e1) );
+    background: -o-linear-gradient(bottom, #bfbfbf 0%, #e1e1e1 100%);
+    background: -ms-linear-gradient(bottom, #bfbfbf 0%, #e1e1e1 100%);
+    background: linear-gradient(bottom, #bfbfbf 0%, #e1e1e1 100%);
+    box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.3);
+    -ms-box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.3);
+    padding: 5px 10px;
+}
+
+/* Slide Sheets */
+div#slide_sheet {
+    position: fixed;
+    top: 36px;
+    left: 0px;
+    width: 100%;
+}
+
+div#slide_sheet .slide_container {
+    position: relative;
+    float: left;
+    left: 50%;
+}
+
+/* Notificação */
+div#slide_sheet .notify {
+    text-align: center;
+    font-size: 0.9em;
+    display: none;
+    z-index: 9;
+    position: absolute;
+    top: 0px;
+    left: -105px;
+    width: 190px;
+    padding: 10px;
+    background-color: rgba(255, 245, 176, 0.9);
+    box-shadow: 0px 0px 8px 2px rgba(20, 20, 20, 0.4);
+    border-radius: 0 0 7px 7px;
+}
+
+div#slide_sheet .notify.green {
+    background-color: green;
+    background-color: rgba(0, 128, 0, 0.9);
+    color: #fff;
+}
+
+div#slide_sheet .notify.red {
+    background-color: #C30026;
+    background-color: rgb(195, 0, 38, 0.9);
+    color: #fff;
+}
+
+/* Caixa de Diálogo */
+div#slide_sheet .dialog {
+    display: none;
+    z-index: 8;
+    position: absolute;
+    top: 0px;
+    left: -270px;
+    width: 500px;
+    padding: 10px 20px 20px 20px;
+    background-color: rgba(250, 250, 250, 0.9);
+    box-shadow: 0px 0px 8px 2px rgba(20, 20, 20, 0.4);
+}
+
+div#slide_sheet .dialog p.title {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #444;
+    border-bottom: 1px solid #bbb;
+}
+
+div#slide_sheet .dialog div.contents {
+    overflow: hidden;
+}
+
+#admin_toolbar {
+    position: relative;
+    top: 36px;
+    background: #ccc;
+    line-height: 0;
+    padding: 5px 10px;
 }

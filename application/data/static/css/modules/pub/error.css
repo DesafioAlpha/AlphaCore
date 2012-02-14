@@ -43,6 +43,7 @@ pre {
 }
 
 div.forbidden,div.notfound,div.error {
+    overflow: auto;
     display: block;
     padding: 15px 25px;
     background-color: #f2f2f2;
