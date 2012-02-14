@@ -55,13 +55,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         // Registra o namespace padrão para sessões
         Zend_Registry::set('Zend_Session', new Zend_Session_Namespace());
         
-        // Carrega o arquivo de configurações extra usadas na aplicação
-        Zend_Registry::set('constants', $this->getOption('constants'));
+        // Registra as configurações da aplicação em um objeto para chamada fluente
+        $daConfig = (object) $this->getOption('da_config');
+        Zend_Registry::set('DA_Config', $daConfig);
         
-        $host = $this->getOption('host'); //
+        $host = $daConfig->host;
         
-        define('STATIC_URL', "http://static.$host"); // Define o caminho raíz para entrega de conteudo estático
+        define('STATIC_URL', "http://static.$host/"); // Define o caminho raíz para entrega de conteudo estático
+        define('STATIC_PATH', APPLICATION_PATH . '/data/static/'); // Diretório para armazenamento de conteúdo estático
         define('APP_URL',    "http://app.$host"); // Define o caminho raíz para entrega de scripts, webservices...
+        
     }
     
     /**
@@ -109,7 +112,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
     
         // Obtém o locale padrão definido no arquivo de configuração
-        $locale_default = $this->getOption('locale');
+        $locale_default = Zend_Registry::get('DA_Config')->locale;
 
         // Instancia o Zend_Locale
         $locale = new Zend_Locale($locale_default);
@@ -130,7 +133,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         // Define o 'locale' atual
         $translate->setLocale($locale);
         
-        // Adiciona estas duas instâncias ao Zend_Registry para que possam ser acessadas por toda a aplicação
+        // Adiciona estas duas instâncias ao registro para que possam ser acessadas por toda a aplicação
         Zend_Registry::set('Zend_Locale', $locale);
         Zend_Registry::set('Zend_Translate', $translate);
         
@@ -143,7 +146,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         /* Registra os plugins */
         $this->frontController->registerPlugin(new DA_Plugin_BuildUp()); // Registra o plugin BuildUp
-        $this->frontController->registerPlugin(new DA_Plugin_Auth()); // Registra o plugin Auth
+        $this->frontController->registerPlugin(new DA_Plugin_Auth());    // Registra o plugin Auth
         
     }
     

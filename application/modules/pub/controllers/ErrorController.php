@@ -34,8 +34,14 @@ class Pub_ErrorController extends Zend_Controller_Action
 
     public function errorAction()
     {
+        if($this->_request->isXmlHttpRequest()){
+            $this->getHelper('layout')->disableLayout();
+            $this->_helper->viewRenderer->setNoRender();
+        }
+        
         $errors = $this->_getParam('error_handler');
         $this->view->title->title = 'Erro';
+        $this->view->title->show  = false;
         
         if (!$errors || !$errors instanceof ArrayObject) {
             $this->view->message = 'You have reached the error page';
@@ -56,8 +62,8 @@ class Pub_ErrorController extends Zend_Controller_Action
                 $this->getResponse()->setHttpResponseCode(500);
                 $priority = Zend_Log::CRIT;
                 $this->view->message = 'Erro da aplicação';
-                $config = Zend_Registry::get('constants');
-                $this->view->friendlyMessage = 'Por favor, contate-nos através do email <a href="mailto:'. $config['email'].'">'.$config['email'].'</a>, informando este erro!';
+                $config = Zend_Registry::get('DA_Config');
+                $this->view->friendlyMessage = 'Por favor, contate-nos através do email <a href="mailto:'. $config->email.'">'. $config->email.'</a>, informando este erro!';
                 break;
         }
         
@@ -88,8 +94,13 @@ class Pub_ErrorController extends Zend_Controller_Action
 
     public function forbiddenAction ()
     {
-        $this->view->title->title = "Acesso negado";
-        $this->view->title->show = false;
+        if($this->_request->isXmlHttpRequest()){
+            $this->getHelper('layout')->disableLayout();
+            $this->_helper->viewRenderer->setNoRender();
+        }else{
+            $this->view->title->title = "Acesso negado";
+            $this->view->title->show = false;    
+        }
         
         $this->getResponse()->setHttpResponseCode(403);
     }

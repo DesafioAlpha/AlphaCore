@@ -99,8 +99,7 @@ class DA_Helper_Calendar extends Zend_View_Helper_Abstract
         
     public function __construct(){
         
-        $weekDayNames = Zend_Registry::get('constants');
-        $this->_weekDayNames = $weekDayNames['weekDayNames'];
+        $this->_weekDayNames = Zend_Registry::get('DA_Config')->weekDayNames;
         // Instância do translator
         $this->_translator = Zend_Registry::get('Zend_Translate');
         

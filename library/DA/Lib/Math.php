@@ -41,8 +41,22 @@
 class DA_Lib_Math
 {
     /**
-     * Calcula o digest para a mensagem ou para um valor aleatório através o algoritmo
-     * passado
+     * Retorna uma string pseudo-aleatória e pseudo-única através da concatenação 
+     * da timestamp e um número gerado pelo método 'Mersenne Twister'
+     * 
+     * Esta operação não aumenta a aleatoriedade da informação, porém dificulta
+     * que dois números gerados sejam iguais tornando a colisão muito *improvável*. 
+     * 
+     * return string
+     */
+    public static function uniqueId()
+    {
+        return (time() . mt_rand());
+    }
+    
+    /**
+     * Calcula o digest para a mensagem ou para um valor aleatório através do 
+     * algoritmo passado
      * 
      * @param string $algorithm Algoritmo usado para o cálculo
      * @param string $message (optional) Mensagem 
@@ -50,15 +64,13 @@ class DA_Lib_Math
      * @throws Exception Caso o algoritmo não seja suportado
      * @return string
      */
-    public static function hash($algorithm, $message = null)
+    public static function hash($algorithm = 'md5', $message = null)
     {
-        if(false === array_search($algorithm, hash_algos())){
+        if(!in_array($algorithm, hash_algos())){
             throw new Exception('Hash algorithm not supported!');
         }
         
-        if(!$message){
-            $message = time() . rand(0, 100000);    
-        }
+        $message || $message = self::uniqueId();
         
         return hash($algorithm, $message);
     } 

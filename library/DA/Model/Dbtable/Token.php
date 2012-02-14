@@ -35,8 +35,7 @@ class DA_Model_Dbtable_Token extends Zend_Db_Table_Abstract
     
     public function init ()
     {
-        $constants = Zend_Registry::get('constants');
-        $this->_staticSalt = $constants['staticSalt'];
+        $this->_staticSalt = Zend_Registry::get('DA_Config')->staticSalt;
         
     }
     /**

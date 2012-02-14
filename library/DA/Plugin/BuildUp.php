@@ -57,7 +57,7 @@ class DA_Plugin_BuildUp extends Zend_Controller_Plugin_Abstract
         
         // Verifica se o view helper está ativo e obtém sua instância
         $view = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('view');
-        $constants = Zend_Registry::get("constants");
+        $config = Zend_Registry::get('DA_Config');
         
         $cache = Zend_Registry::get('cache');
         /* Define a navegação para o módulo, se houver */
@@ -68,9 +68,9 @@ class DA_Plugin_BuildUp extends Zend_Controller_Plugin_Abstract
             }else{
                 $navFileName = "nav";
             }
-        
-            $config = new Zend_Config_Xml(APPLICATION_PATH . "/configs/$navFileName.xml", 'nav'); // Interpreta as configurações do arquivo Xml em um arra
-            $navigation = new Zend_Navigation($config); // Cria uma instância do Zend_Navigation, com as configurações acima
+            
+            // Cria uma instância do Zend_Navigation, com as configurações acima
+            $navigation = new Zend_Navigation(new Zend_Config_Xml(APPLICATION_PATH . "/configs/$navFileName.xml", 'nav'));
             $cache->save($navigation, "{$module}_nav");
         
         }
@@ -93,15 +93,15 @@ class DA_Plugin_BuildUp extends Zend_Controller_Plugin_Abstract
         }
         
         $view->headTitle()->setSeparator(' | ') // Separador das seções do título das páginas
-             ->headTitle($constants['projectName']); // Define o título padrão para todas as páginas
+             ->headTitle($config->projectName); // Define o título padrão para todas as páginas
         
         /* Ícones para as páginas */
-        $view->headLink(array('rel' => 'favicon', 'href' => STATIC_URL . '/media/icons/favicon_default.ico', 'type' => 'image/x-icon' ), 'APPEND')
-             ->headLink(array('rel' => 'shortcut icon', 'href' => STATIC_URL . '/media/icons/favicon_default.ico', 'type' => 'image/x-icon' ), 'APPEND');
+        $view->headLink(array('rel' => 'favicon', 'href' => STATIC_URL . 'media/icons/favicon_default.ico', 'type' => 'image/x-icon' ), 'APPEND')
+             ->headLink(array('rel' => 'shortcut icon', 'href' => STATIC_URL . 'media/icons/favicon_default.ico', 'type' => 'image/x-icon' ), 'APPEND');
         
        
-        $view->projectName = $constants['projectName'];
-        $view->dateFormat = $constants['dateFormat'];
+        $view->projectName = $config->projectName;
+        $view->dateFormat  = $config->dateFormat;
         $view->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8'); // Inclui a meta tag 'Content-type' em todas as páginas
         
         

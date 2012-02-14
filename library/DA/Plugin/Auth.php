@@ -53,7 +53,7 @@ class DA_Plugin_Auth extends Zend_Controller_Plugin_Abstract
     /**
      * @var array Campos a serem buscados no BD e gravados na sessão
      */
-    public static $_userFields = array('user_id', 'role_id', 'last_login');
+    public static $_userFields = array('user_id', 'role_id', 'last_login', 'username');
     
     /**
      * @see Zend_Controller_Plugin_Abstract::preDispatch()
@@ -67,12 +67,20 @@ class DA_Plugin_Auth extends Zend_Controller_Plugin_Abstract
         
         $view = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('view');
         
+        // Define as roles padrão
         $this->_roles = array(
             array('name' => 'guest',  'parents' => null),    
             array('name' => 'team',   'parents' => 'guest'),
             array('name' => 'person', 'parents' => 'team'),
             array('name' => 'school', 'parents' => null),
             array('name' => 'admin',  'parents' => array('team', 'school')),
+        );
+        
+        // Define mapeamentos padrão para módulos/recursos
+        $this->_autoResource = array(
+            'pub'        => 'guest',
+            'admin'      => 'admin',
+            'equipe'     => 'team'       
         );
         
         $role = 'guest'; // Role padrão
@@ -97,18 +105,27 @@ class DA_Plugin_Auth extends Zend_Controller_Plugin_Abstract
            $view->navigation()->setRole($role);                
         }
         
+        $module = $request->getModuleName();
+        
+        // Verifica se existe um mapeamento pré-definido para este módulo
+        if(key_exists($module, $this->_autoResource)){
+            $resource = $this->_autoResource[$module];
+        }
+        
+        // Sobrescreve os parâmetros caso definido explicitamente na navigation 
+        if(($thisPage = $view->navigation()->findBy('active', true)) && $thisPage->getResource()){
+            $resource = $thisPage->getResource();
+        }
+        
         /* Verifica se o cliente está autorizado para o recurso em questão */
-        if($thisPage = $view->navigation()->findBy('active', true)){
-            if($thisPage->getResource() && !$acl->isAllowed($role, $thisPage->getResource())){ // Proibido!
-            
-                // Passa a URL requisitada para a próxima autenticação
-                if(!$auth->hasIdentity()){
-                    $this->_session->url_redir = $_SERVER['REQUEST_URI'];
-                }
-                
-                // Exibe o erro de autorização
-                $request->setControllerName('error')->setActionName('forbidden');
+        if(!$acl->isAllowed($role, $resource)){ // Proibido!
+            // Passa a URL requisitada para a próxima autenticação
+            if(!$auth->hasIdentity()){
+                $this->_session->url_redir = $_SERVER['REQUEST_URI'];
             }
+        
+            // Exibe o erro de autorização
+            $request->setModuleName('pub')->setControllerName('error')->setActionName('forbidden');
         }
     }
     
@@ -177,9 +194,8 @@ class DA_Plugin_Auth extends Zend_Controller_Plugin_Abstract
             'column' => 'password', 'value' => $password
         );
 
-        /* Sal estático para uso na digestão da senha */
-        $constants = Zend_Registry::get('constants');
-        $staticSalt = $constants['staticSalt'];
+        // Sal estático para uso na digestão da senha
+        $staticSalt = Zend_Registry::get('DA_Config')->staticSalt;
         
         // Parâmetros para a consulta
         $authDb->setTableName($table)

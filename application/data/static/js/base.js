@@ -26,6 +26,9 @@
  * @license      http://doc.desafioalpha.com.br/legal/gplv3 GPLv3
  * 
  */
+/** Namespace principal da aplicação */
+da = {};
+
 $(function(){
 	$('#username').focus();
 });

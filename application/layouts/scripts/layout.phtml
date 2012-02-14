@@ -5,9 +5,9 @@
       $this->headTitle()->prepend($this->layout()->getView()->title->title)
 ?>
 <?php echo $this->headMeta() ?> 
+<?php echo $this->headTitle() ?> 
 <?php echo $this->headLink() ?> 
 <?php echo $this->headScript() ?> 
-<?php echo $this->headTitle() ?> 
 </head>
 <body>
     <div id="pub_container">
@@ -24,5 +24,6 @@
     </div>
     <?php echo $this->partial('partials/pub/footer.phtml', array()) ?>
     <div id="pub_bottom"></div>
+<?php echo $this->resourceLoader()->inlineScript() ?>
 </body>
 </html>

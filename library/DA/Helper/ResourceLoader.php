@@ -46,8 +46,12 @@
 class DA_Helper_ResourceLoader extends Zend_View_Helper_Abstract
 {
     private $_cssPrepared;
+    private $_cssCount = 10000;
     private $_jsPrepared;
     private $_moduleName;
+    
+    private $_inlineScripts = array();
+    private $_inlineScriptsFiles = array();
     
     public function resourceLoader()
     {
@@ -61,10 +65,10 @@ class DA_Helper_ResourceLoader extends Zend_View_Helper_Abstract
         $this->_controllerName =  Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
         
         $this->_prepareCss()
-             ->_prepareJs();
+             ->_prepareJs(Zend_Registry::get('DA_Config')->loadFromCdn);
         
     }    
-
+    
     /**
      * Carrega as dependências globais de folhas de estilos
      * 
@@ -75,7 +79,7 @@ class DA_Helper_ResourceLoader extends Zend_View_Helper_Abstract
         if(!$this->_cssPrepared){
             $this->appendCss('base.css', 2, 'all');
             $this->appendCss("modules/{$this->_moduleName}/{$this->_controllerName}.css", 4, 'all');
-            $this->appendCss('print.css', 1000, 'print');
+            $this->appendCss('print.css', null, 'print');
             
             $this->_cssPrepared = true;
         }
@@ -88,11 +92,20 @@ class DA_Helper_ResourceLoader extends Zend_View_Helper_Abstract
      * 
      * @return DA_Helper_ResourceLoader
      */
-    private function _prepareJs()
+    private function _prepareJs($fromCDN = false)
     {   
          if(!$this->_jsPrepared){             
-             $this->appendScript("3rd_party/jquery/jquery.min.js");             
+             if($fromCDN){
+                 // Carrega a última versão da biblioteca jQuery do Google CDN 
+                 $this->view->headScript()->appendFile('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js');
+             }else{
+                 $this->appendScript("3rd_party/jquery/jquery.min.js");
+             }             
              $this->appendScript('base.js');
+             
+             // Exporta configurações para o cliente
+             $this->appendInlineScript("da.static_url = '" . STATIC_URL . "'");
+             $this->appendInlineScript("da.maindomain = '" . Zend_Registry::get('DA_Config')->host . "'");
              
              $this->_jsPrepared = true;
          }   
@@ -100,15 +113,50 @@ class DA_Helper_ResourceLoader extends Zend_View_Helper_Abstract
          return $this;
     }
     
+    /**
+     * Adiciona os scripts e arquivos de script ao helper inlineScript e o retorna.
+     */
+    public function inlineScript(){
+            
+        // Cada elemento de script deve incluir
+        $this->_inlineScripts && $this->view->inlineScript()->appendScript(join(PHP_EOL, $this->_inlineScripts));
+    
+        foreach ($this->_inlineScriptsFiles as $inlineScript){
+            $this->view->inlineScript()->appendFile($inlineScript);
+        }
+    
+        return $this->view->inlineScript();
+    }
+    
+    /**
+     * Anexa um script inline ao armazenamento.
+     * 
+     * @param string $script
+     */
+    public function appendInlineScript($script)
+    {
+        // Adiciona o terminador de linha Js caso não exista.
+        (substr($script, -1) != ';') && $script .= ';';
+        
+        $this->_inlineScripts[] = $script;
+            
+    }
+    
 	/**
      * Adiciona um script ao headScript a partir do caminho correspondente.
      * 
-     * @param string $script_path Caminho do script a ser adicionado
+     * @param string scriptPathh Caminho do script a ser adicionado
      * @return DA_Helper_ResourceLoader
      */
-    public function appendScript($script_path){
+    public function appendScript($scriptPath, $inline = false){
         
-        $this->view->headScript()->appendFile(APP_URL . "/js/" . $script_path);
+        $path = APP_URL . "/js/" . $scriptPath;
+        
+        if($inline){
+            $this->_inlineScriptsFiles[] = $path;
+        }else{
+            $this->view->headScript()->appendFile($path);
+        }
         
         return $this;
         
@@ -120,7 +168,11 @@ class DA_Helper_ResourceLoader extends Zend_View_Helper_Abstract
      * @param array|string $css_path
      * @return DA_Helper_ResourceLoader
      */
-    public function appendCss($css_path, $index, $media = 'screen'){
+    public function appendCss($css_path, $index = null, $media = 'screen'){
+        
+        if(!$index){
+            $index = $this->_cssCount;
+        }
         
         if(is_array($css_path)){
             
@@ -130,10 +182,11 @@ class DA_Helper_ResourceLoader extends Zend_View_Helper_Abstract
             
         }else{
             
-            $this->view->headLink()->offsetSetStylesheet($index, STATIC_URL . "/css/" . $css_path, $media);
+            $this->view->headLink()->offsetSetStylesheet($index, STATIC_URL . "css/" . $css_path, $media);
             
         }
         
+        $this->_cssCount++;
         return $this;
         
     }
@@ -144,17 +197,17 @@ class DA_Helper_ResourceLoader extends Zend_View_Helper_Abstract
      * @param string|array $plugin Nome ou lista de nomes dos plugins jQuery a serem adicionados ao view.
      * @return DA_Helper_ResourceLoader
      */
-    public function appendJqueryPlugin($plugin){
+    public function appendJqueryPlugin($plugin, $inline = false){
         
         if(is_array($plugin)){
             
             foreach ($plugin as $plugin_name){
-                $this->appendScript("3rd_party/jquery/plugins/$plugin_name.js");
+                $this->appendScript("3rd_party/jquery/plugins/$plugin_name.js", $inline);
             }
             
         }elseif(is_string($plugin)){
             
-            $this->appendScript("3rd_party/jquery/plugins/$plugin.js");
+            $this->appendScript("3rd_party/jquery/plugins/$plugin.js", $inline);
                         
         }
         

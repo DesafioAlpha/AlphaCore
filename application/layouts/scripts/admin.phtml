@@ -1,43 +1,87 @@
 <?php echo $this->doctype()?>
-<html>
+<html lang="pt-br">
 <head>
 <?php $this->layout()->getView()->resourceLoader()->appendCss("modules/admin/admin.css", 3, 'all')
-                                                  ->appendScript("modules/admin/admin.js")
-                                                  ->appendJqueryPlugin(array(
-                                                      'jquery.fisheye-iutil.min',
-                                                  )); 
+                                                  ->appendScript("modules/admin/admin.js"); 
       $this->headTitle()->prepend($this->layout()->getView()->title->title)
 ?>
-<?php echo $this->headMeta() ?> 
+<?php echo $this->headMeta() ?>
+<?php echo $this->headTitle() ?>  
 <?php echo $this->headLink() ?> 
 <?php echo $this->headScript() ?> 
-<?php echo $this->headTitle() ?> 
 </head>
 <body>
     <header>
         <div id="floated_band"></div>
         <div id="admin_header">
-            <a href="" class="logo"><?php echo $this->layout()->getView()->projectName ?></a>
+            <a target="_blank" href="http://<?php echo Zend_Registry::get('DA_Config')->host ?>" class="logo"><?php echo $this->layout()->getView()->projectName ?></a>
             <div class="header">
                 <div class="title">
                     <h1><?php echo $this->layout()->getView()->title->title ?></h1>
                 </div>
-                <?php if(Zend_Auth::getInstance()->hasIdentity()){ ?><a href="/login/logout/" title="Sair" class="logout"></a><?php } ?>
+                <span class="logout">
+                <?php if(Zend_Auth::getInstance()->hasIdentity()){ echo Zend_Auth::getInstance()->getIdentity()->username; ?>
+                <a href="/login/logout/" title="Sair"></a><?php } ?>
+                </span>
                 <span class="time"><?php echo date($this->layout()->getView()->dateFormat, time()) ?></span>
+            </div>
+        </div>
+<?php
+    if(($thisPage = $this->layout()->getView()->navigation()->findBy('active', true)) && $this->navigation()->accept($thisPage) && $toolbar = $thisPage->get('toolbar')){
+        echo '<div id="admin_toolbar">';
+        
+        foreach ($toolbar as $tool){
+            echo '<a href="#" id="'.$tool['id'].'"><img src="'. STATIC_URL . 'media/icons/menu/'.$tool['icon'].'.png' .'" width="30"></a>';        
+        }; 
+        
+        echo '</div>'; 
+    } ?>
+        <div id="slide_sheet">
+            <div class="slide_container">
+            <span>
+                <div class="notify">
+                </div>
+                <div class="dialog">
+                    <p class="title"></p>
+                    <div class="contents"></div>
+                    <div class="form_buttons"><a href="#" class="button close"><span>Fechar</span></a></div>
+                </div>
             </div>
         </div>
         <div id="breadcrumbs"><?php echo $this->navigation()->breadcrumbs()->render() ?></div>
     </header>
     <div id="admin_container">
     <div id="admin_menu">
-        <?php 
-        $partial = array('menu.phtml', 'admin');
-        echo $this->navigation()->menu()->setPartial($partial)->render() ;
-        ?>
+<?php 
+    $partial = array('menu.phtml', 'admin');
+    echo $this->navigation()->menu()->setPartial($partial)->render() ;
+?>
     </div>
     <div id="admin_content">
         <?php echo $this->layout()->content . "\n"; ?>
     </div>
     </div>
+<?php echo $this->resourceLoader()->inlineScript() ?>
+<div id="uploader_template" class="hidden">
+    <div class="upload_container">
+        <div class="context_switch">
+            <a href="#" rel="1">Imagem</a>
+            <a href="#" rel="2">Áudio</a>
+            <a href="#" rel="3">Vídeo</a>
+            <a href="#" rel="4">Documento</a>
+            <a href="#" rel="5">Outro</a>
+        </div>
+        <div class="uploader">
+            <label class="fileinput-button">
+                <button><span>Escolher arquivos...</span></button>
+                <input type="file" name="files[]" multiple>
+            </label>
+            <button type="submit" class="start"><span>Iniciar upload</span></button>
+            <button type="reset" class="cancel hidden"><span>Cancelar upload</span></button>
+            <ul class="file_queue"></ul>
+            <div class="progress_bar"></div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
