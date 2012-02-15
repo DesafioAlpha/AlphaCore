@@ -27,4 +27,30 @@
  * @copyright    Copyright (c) 2007-2012 Desafio Alpha (http://desafioalpha.com.br)
  * @license      http://doc.desafioalpha.com.br/legal/gplv3 GPLv3
  */
-
+?>
+<div id="questions_info">Existem <?php echo $this->questionCount ?> desafios cadastrados</div>
+<div id="search_bar">
+    <a href="#" class="last selected" rel="5">Últimos 5</a>
+    <a href="#" class="last" rel="0">Todos</a>
+<b></b>
+<span>Marcados para:</span>
+    <a href="#" class="status" rel="0">Final</a>
+    <a href="#" class="status" rel="1">Revisão</a>
+    <a href="#" class="status" rel="2">Exclusão</a>
+    <a href="#" class="new_questions">Novos</a>
+</div>
+<div id="question_list"></div>
+<div id="question_list_new"></div>
+<div id="question_template" class="hidden">
+    <div class="question">
+        <a class="header" href="#">
+            <span class="flag"></span>
+            <input type="hidden" class="question_id" value="">
+            <span class="description">Desafio ID: <span class="question_id"></span></span>
+            <span class="username">Por <span class="edit_username"></span></span>
+            <span class="time">Modificado em <span class="edit_lasttime"></span></span>
+        </a>
+        <button class="reset"><span>Redefinir...</span></button>
+        <div class="question_load"></div>
+    </div>
+</div>

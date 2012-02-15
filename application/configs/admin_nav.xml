@@ -70,7 +70,13 @@
                                 <new_question>
                                     <icon>question</icon>
                                     <id>new_question</id>
+                                    <label>Novo desafio</label>
                                 </new_question>
+                                <save_all>
+                                    <icon>save_all</icon>
+                                    <id>save_all</id>
+                                    <label>Salvar tudo</label>
+                                </save_all>
                             </toolbar>
                         </database>
                         <view>

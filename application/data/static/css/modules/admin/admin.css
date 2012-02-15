@@ -288,8 +288,35 @@ div#slide_sheet .dialog div.contents {
 
 #admin_toolbar {
     position: relative;
+    overflow: hidden;
     top: 36px;
     background: #ccc;
     line-height: 0;
-    padding: 5px 10px;
+}
+
+#admin_toolbar a {
+    font-size: 0.95em;
+     color: #444;
+    text-decoration: none;
+    height: 16px;
+    float: left;
+    position: relative;
+    display: block;
+    margin: 0 5px;
+    padding: 22px 5px 5px 38px; 
+}
+#admin_toolbar a:hover {
+    color: white;
+    background: #777;
+}
+#admin_toolbar a img {
+    height: 30px;
+    position: absolute;
+    top: 7px;
+    left: 5px;
+}
+#admin_toolbar a span {
+    display: block;
+    margin: 0 8px; 
+   
 }

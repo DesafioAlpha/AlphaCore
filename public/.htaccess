@@ -1,3 +1,4 @@
+Options All -Indexes
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} -s [OR]
 RewriteCond %{REQUEST_FILENAME} -l [OR]
@@ -6,3 +7,7 @@ RewriteRule ^.*$ - [NC,L]
 # RewriteRule ^.*$ index.php [NC,L]
 # Impede que a requisição de conteúdo estático chame a aplicação Zend (principalmente favicon.ico)
 RewriteRule !\.(ico|gif|jpg|png|css|js|html)$ index.php [NC,L]
+<IfModule mod_php5.c>
+    php_value upload_max_filesize 50M
+    php_value post_max_size       50M
+</IfModule>

@@ -31,7 +31,7 @@
         echo '<div id="admin_toolbar">';
         
         foreach ($toolbar as $tool){
-            echo '<a href="#" id="'.$tool['id'].'"><img src="'. STATIC_URL . 'media/icons/menu/'.$tool['icon'].'.png' .'" width="30"></a>';        
+            echo '<a href="#" id="'.$tool['id'].'"><img src="'. STATIC_URL . 'media/icons/menu/'.$tool['icon'].'.png' .'">'. (isset($tool['label'])?'<span>'.$tool['label'].'</span>':'').'</a>';        
         }; 
         
         echo '</div>'; 

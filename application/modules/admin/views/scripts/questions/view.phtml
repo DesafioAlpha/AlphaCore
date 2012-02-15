@@ -1,0 +1,120 @@
+<?php
+/**
+ * Desafio Alpha - AlphaCore
+ * 
+ * LICENÇA:
+ * 
+ * Este software é distribuído sob a licença GNU General Public License - Versão 3. 
+ * O conteúdo desta licença está disponível no arquivo LICENSE.txt e nos endereços web 
+ * http://doc.desafioalpha.com.br/legal e http://www.gnu.org/licenses/gpl.html
+ * 
+ * Qualquer dúvida sobre este arquivo fonte e como usá-lo refira-se à 
+ * documentação anexada à este pacote de software ou envie um email 
+ * para dev@desafioalpha.com.br
+ * 
+ * ESTE SOFTWARE É DISPONIBILIZADO 'NA FORMA COMO ESTÁ', O AUTOR NÃO OFERECE 
+ * NENHUMA GARANTIA, EXPLÍCITA OU IMPLÍCITA, SOBRE PRECISÃO E CONFIABILIDADE.
+ * SINTA-SE LIVRE PARA VER, MODIFICAR E REDISTRIBUIR, SOB AS CONDIÇÕES DA 
+ * LICENÇA APLICADA. 
+ *
+ * @category     Desafio Alpha
+ * @package      DA_Admin
+ * @subpackage   Questions
+ * @file         show.phtml
+ * @encoding     UTF-8
+ * 
+ * @author       Desafio Alpha Dev Team <dev@desafioalpha.com.br>
+ * @copyright    Copyright (c) 2007-2012 Desafio Alpha (http://desafioalpha.com.br)
+ * @license      http://doc.desafioalpha.com.br/legal/gplv3 GPLv3
+ */
+
+    
+if(isset($this->questionData)) :
+    $data = $this->questionData;    
+?>
+<div class="question_container" id="<?php echo (isset($data['new'])?'new_':'question_') . $data['question_id'] ?>">
+    <div>
+        <form method="POST" action="/questions/save/">
+            <input name="id" class="question_id" type="hidden" value="<?php echo $data['question_id'] ?>">
+            <div class="title">
+                <div
+                    class="flag <?php echo (($data['status'] == 1)?'yellow':(($data['status'] == 2)?'red':'')) ?>">
+                    <input type="hidden" name="status" value="<?php echo $data['status'] ?>">
+                </div>
+                <div class="name">
+                    <a target="_blank"
+                        href="/questions/view/id/<?php echo $data['question_id'] ?>"><?php echo $data['question_id'] ?></a>
+                </div>
+                <div class="value">
+                    Valor: <span><?php echo $data['value'] ?></span><input
+                        type="hidden" name="value"
+                        value="<?php echo $data['value'] ?>">
+                </div>
+            </div>
+            <div class="controllers">
+                <div class="attachment <?php echo (!$this->hasMedia?'hidden':'') ?>" title="Possui recurso de mídia"></div>
+                <button type="button" class="add_media"><span>Adicionar mídia...</span></button>
+                <button type="submit" class="save"><span>Salvar</span></button>
+                <button type="reset" class="delete"><span>Excluir</span></button>
+            </div>
+            <div class="question">
+                <div class="text">
+                    <textarea name="text" class="question_edit"><?php echo $data['text'] ?></textarea>
+                </div>
+                <div class="answer">
+                    <input name="answer" class="question_edit"
+                        type="text"
+                        value="<?php echo htmlspecialchars($data['answer']) ?>">
+                </div>
+            </div>
+            <div class="media"></div>
+        </form>
+    </div>
+</div>
+<?php elseif(isset($this->questionMedia)) : 
+ foreach ($this->questionMedia as $media ) : 
+        
+        $path     = STATIC_URL . $media['path'];
+        $fileInfo = pathinfo($path);
+        $mediaId = 'media_' . $media['question_media_id'];
+        
+        switch ($media['media_type']) :
+            case DA_Lib_Files::MEDIA_IMAGE :
+                isset($images_group) || print('</ul><ul class="image"><p>Imagens</p>') and $images_group = true;
+                
+                echo '<li><a id="'.$mediaId.'" href="' . $path . '" target="_blank"><img src="' . $fileInfo['dirname'] . '/thumb/' . $fileInfo['basename'] . '"></a></li>';
+
+                break;
+            case DA_Lib_Files::MEDIA_AUDIO :
+                isset($audio_group) || print('</ul><ul class="audio"><p>Áudio</p>') and $audio_group = true;
+                
+                echo '<li><a id="'.$mediaId.'" href="' . $path . '" target="_blank">' . $media['path'] . '</a></li>';
+               
+                break;
+            case DA_Lib_Files::MEDIA_VIDEO :
+                isset($videos_group) || print('</ul><ul class="video"><p>Vídeo</p>') and $videos_group = true;
+                
+                echo '<li><a class="video" id="'.$mediaId.'" href="' . $path . '" target="_blank"></a></li>';
+                
+                break;
+            case DA_Lib_Files::MEDIA_DOC :
+                
+                isset($doc_group) || print('</ul><ul class="doc"><p>Documentos</p>') and $doc_group = true;
+                
+                echo '<li><a id="'.$mediaId.'" href="' . $path . '" target="_blank">' . $media['path'] . '</a></li>';
+                
+                break;
+            case DA_Lib_Files::MEDIA_OTHER :
+
+                isset($other_group) || print('</ul><ul class="other"><p>Outros</p>') and $other_group = true;
+                
+                echo '<li><a id="'.$mediaId.'" href="' . $path . '" target="_blank">' . $media['path'] . '</a></li>';
+                
+                break;
+            default:
+                echo '';
+                
+        endswitch; 
+        endforeach; 
+        echo '</ul>'; ?>
+<?php endif; ?>

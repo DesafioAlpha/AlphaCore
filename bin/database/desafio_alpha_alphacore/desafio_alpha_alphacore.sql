@@ -2,7 +2,7 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
-CREATE SCHEMA IF NOT EXISTS `desafio_alpha_alphacore` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+CREATE SCHEMA IF NOT EXISTS `desafio_alpha_alphacore` DEFAULT CHARACTER SET utf8 ;
 USE `desafio_alpha_alphacore` ;
 
 -- -----------------------------------------------------
@@ -18,20 +18,7 @@ CREATE  TABLE IF NOT EXISTS `desafio_alpha_alphacore`.`event` (
   INDEX `start_date` (`start_date` ASC) ,
   UNIQUE INDEX `event_id_UNIQUE` (`event_id` ASC) )
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci
 COMMENT = 'Datas de eventos usados na aplicação';
-
-
--- -----------------------------------------------------
--- Table `desafio_alpha_alphacore`.`role`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `desafio_alpha_alphacore`.`role` (
-  `role_id` INT NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(45) NULL ,
-  PRIMARY KEY (`role_id`) ,
-  UNIQUE INDEX `profile_id_UNIQUE` (`role_id` ASC) )
-ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -42,18 +29,13 @@ CREATE  TABLE IF NOT EXISTS `desafio_alpha_alphacore`.`user` (
   `username` VARCHAR(255) NULL ,
   `password` VARCHAR(255) NULL ,
   `password_salt` VARCHAR(40) NULL ,
-  `role_id` INT NULL DEFAULT 1 ,
   `last_login` TIMESTAMP NULL ,
+  `role_id` INT NULL DEFAULT 1 ,
   PRIMARY KEY (`user_id`) ,
-  INDEX `fk_profile_id` (`role_id` ASC) ,
   UNIQUE INDEX `username_UNIQUE` (`username` ASC) ,
-  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) ,
-  CONSTRAINT `fk_profile_id`
-    FOREIGN KEY (`role_id` )
-    REFERENCES `desafio_alpha_alphacore`.`role` (`role_id` )
-    ON DELETE NO ACTION
-    ON UPDATE CASCADE)
+  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) )
 ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
 COMMENT = 'Credenciais usadas na autenticação da aplicação';
 
 
@@ -74,9 +56,7 @@ CREATE  TABLE IF NOT EXISTS `desafio_alpha_alphacore`.`token` (
     REFERENCES `desafio_alpha_alphacore`.`user` (`user_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -169,20 +149,41 @@ CREATE  TABLE IF NOT EXISTS `desafio_alpha_alphacore`.`person` (
     REFERENCES `desafio_alpha_alphacore`.`user` (`user_id` )
     ON DELETE NO ACTION
     ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `desafio_alpha_alphacore`.`resource`
+-- Table `desafio_alpha_alphacore`.`question`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `desafio_alpha_alphacore`.`resource` (
-  `resource_id` INT NOT NULL AUTO_INCREMENT ,
-  `module` VARCHAR(45) NULL ,
-  `controller` VARCHAR(45) NULL ,
-  `action` VARCHAR(45) NULL ,
-  PRIMARY KEY (`resource_id`) )
+CREATE  TABLE IF NOT EXISTS `desafio_alpha_alphacore`.`question` (
+  `question_id` VARCHAR(40) NOT NULL ,
+  `comments` VARCHAR(500) NULL ,
+  `status` INT NULL DEFAULT 1 ,
+  `answer` TEXT NULL ,
+  `text` MEDIUMTEXT NULL ,
+  `edit_username` VARCHAR(255) NULL ,
+  `value` INT NULL DEFAULT 0 ,
+  `edit_lasttime` TIMESTAMP NULL ,
+  PRIMARY KEY (`question_id`) ,
+  UNIQUE INDEX `question_id_UNIQUE` (`question_id` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `desafio_alpha_alphacore`.`question_media`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `desafio_alpha_alphacore`.`question_media` (
+  `question_media_id` INT NOT NULL AUTO_INCREMENT ,
+  `path` VARCHAR(500) NULL ,
+  `media_type` INT NULL ,
+  `question_id` VARCHAR(40) NULL ,
+  PRIMARY KEY (`question_media_id`) ,
+  INDEX `fk_media_question_id` (`question_id` ASC) ,
+  CONSTRAINT `fk_media_question_id`
+    FOREIGN KEY (`question_id` )
+    REFERENCES `desafio_alpha_alphacore`.`question` (`question_id` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -202,7 +203,13 @@ CREATE  TABLE IF NOT EXISTS `desafio_alpha_alphacore`.`auth_log` (
   `post_rememberme` TINYINT(1) NULL ,
   `url_referer` VARCHAR(255) NULL ,
   `url_action` VARCHAR(255) NULL ,
-  PRIMARY KEY (`auth_log_id`) )
+  PRIMARY KEY (`auth_log_id`) ,
+  INDEX `fk_log_user_id` (`user_id` ASC) ,
+  CONSTRAINT `fk_log_user_id`
+    FOREIGN KEY (`user_id` )
+    REFERENCES `desafio_alpha_alphacore`.`user` (`user_id` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -216,14 +223,6 @@ grant DELETE on TABLE `desafio_alpha_alphacore`.`city` to desafio_alpha;
 grant SELECT on TABLE `desafio_alpha_alphacore`.`city` to desafio_alpha;
 grant UPDATE on TABLE `desafio_alpha_alphacore`.`city` to desafio_alpha;
 grant INSERT on TABLE `desafio_alpha_alphacore`.`city` to desafio_alpha;
-grant DELETE on TABLE `desafio_alpha_alphacore`.`resource` to desafio_alpha;
-grant SELECT on TABLE `desafio_alpha_alphacore`.`resource` to desafio_alpha;
-grant UPDATE on TABLE `desafio_alpha_alphacore`.`resource` to desafio_alpha;
-grant INSERT on TABLE `desafio_alpha_alphacore`.`resource` to desafio_alpha;
-grant DELETE on TABLE `desafio_alpha_alphacore`.`role` to desafio_alpha;
-grant SELECT on TABLE `desafio_alpha_alphacore`.`role` to desafio_alpha;
-grant INSERT on TABLE `desafio_alpha_alphacore`.`role` to desafio_alpha;
-grant UPDATE on TABLE `desafio_alpha_alphacore`.`role` to desafio_alpha;
 grant SELECT on TABLE `desafio_alpha_alphacore`.`country` to desafio_alpha;
 grant INSERT on TABLE `desafio_alpha_alphacore`.`country` to desafio_alpha;
 grant DELETE on TABLE `desafio_alpha_alphacore`.`country` to desafio_alpha;
