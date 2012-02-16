@@ -40,7 +40,7 @@ return array_replace_recursive(array(
     
     /* Caminhos-padrão */
     'includePaths' => array(
-        'library' => APPLICATION_PATH . "/../library"
+    
     ), 
     
     /* Informações da aplicação */
@@ -62,8 +62,6 @@ return array_replace_recursive(array(
             'moduleDirectory'     => APPLICATION_PATH . "/modules",
             'params'              => array(
                 'disableOutputBuffering'    => false,
-                'displayExceptions'         => 0
-
             )
         ), 
         

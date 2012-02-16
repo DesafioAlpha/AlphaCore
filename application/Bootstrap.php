@@ -61,9 +61,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         
         $host = $daConfig->host;
         
-        define('STATIC_URL', "http://static.$host/"); // Define o caminho raíz para entrega de conteudo estático
+        define('STATIC_URL', "http://" . $daConfig->urls['static'] . "/"); // Define o caminho raíz para entrega de conteudo estático
         define('STATIC_PATH', APPLICATION_PATH . '/data/static/'); // Diretório para armazenamento de conteúdo estático
-        define('APP_URL',    "http://app.$host"); // Define o caminho raíz para entrega de scripts, webservices...
+        define('APP_URL',    "http://" . $daConfig->urls['app'] . "/"); // Define o caminho raíz para entrega de scripts, webservices...
         
     }
     
@@ -156,6 +156,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initHelpers ()
     {
         $this->view->setHelperPath('DA/Helper/', "DA_Helper_");
-        
+        echo DA_Lib_Math::hash();
     }
 }

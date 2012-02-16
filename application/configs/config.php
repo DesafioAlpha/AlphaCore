@@ -32,15 +32,16 @@ return array(
         'weekDayNames' => array(
             'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'
         ),
-        'email'      => "dev@desafioalpha.com.br",
-        'staticSalt' => 'm2-03jtgjdsp0vm2dj9sa904T$#@',
+        'email'       => "dev@desafioalpha.com.br",
+        'staticSalt'  => 'm2-03jtgjdsp0vm2dj9sa904T$#@',
         'projectName' => 'Desafio Alpha',
         'dateFormat'  => 'd/m/Y H:i:s',
-        'loadFromCdn' => true,
-        'host'        => "desafio_alpha",
-        
+        'host'        => "desafio_alpha",        
         'locale'      => 'pt_BR',
-        
+        'urls'        => array(
+            'app'     => 'app.desafio_alpha',
+            'static'  => 'static.desafio_alpha',
+        )
     ),
 
     
