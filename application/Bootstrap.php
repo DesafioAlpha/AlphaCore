@@ -156,6 +156,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initHelpers ()
     {
         $this->view->setHelperPath('DA/Helper/', "DA_Helper_");
-        echo DA_Lib_Math::hash();
+        
     }
 }
