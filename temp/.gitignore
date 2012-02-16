@@ -1,3 +1,4 @@
 cache/*
 logs/*
 session/*
+!README.txt

@@ -1,0 +1,8 @@
+audio/*
+docs/*
+images/*
+!/images/thumb/
+images/thumb/*
+other/*
+videos/*
+!.gitignore
