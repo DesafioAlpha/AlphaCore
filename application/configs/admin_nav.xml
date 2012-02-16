@@ -6,9 +6,14 @@
             <module>admin</module>
             <controller>login</controller>
             <action>index</action>
-            <visible>false</visible>
             <resource>guest</resource>
         </login>
+        <logout>
+            <module>admin</module>
+            <controller>login</controller>
+            <action>logout</action>
+            <resource>guest</resource>
+        </logout>
         <control>
             <label>Painel de controle</label>
             <module>admin</module>
