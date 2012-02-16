@@ -19,10 +19,14 @@
                 <div class="title">
                     <h1><?php echo $this->layout()->getView()->title->title ?></h1>
                 </div>
+                
+                <?php if(Zend_Auth::getInstance()->hasIdentity()){ ?>
                 <span class="logout">
-                <?php if(Zend_Auth::getInstance()->hasIdentity()){ echo Zend_Auth::getInstance()->getIdentity()->username; ?>
-                <a href="/login/logout/" title="Sair"></a><?php } ?>
+                    <?php echo Zend_Auth::getInstance()->getIdentity()->username; ?>
+                    <a href="/login/logout/" title="Sair"></a>
                 </span>
+                <?php } ?>
+                
                 <span class="time"><?php echo date($this->layout()->getView()->dateFormat, time()) ?></span>
             </div>
         </div>

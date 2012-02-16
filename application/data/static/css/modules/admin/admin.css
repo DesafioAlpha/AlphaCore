@@ -161,23 +161,38 @@ html,body {
 }
 
 #dock {
-    margin-top: 100px;
     position: relative;
+    float: left;
+    left: 50%;
+    margin-top: 100px;
+}
+
+#dock.ready {
+    float: none;
+    left: 0;
 }
 
 #dock .dock_container {
     position: relative;
-    height: 70px;
+    left: -50%;
+    height: 80px;
+}
+
+#dock.ready .dock_container {
+    left: 0;
 }
 
 #dock .dock_container a {
+    position: relative;
     display: block;
-    width: 100px;
-    position: absolute;
+    width: 60px;
     bottom: 0;
-    text-align: center;
+    float: left;
     text-decoration: none;
-    color: #333;
+}
+
+#dock.ready .dock_container a {
+    position: absolute;
 }
 
 #dock .dock_container a span {

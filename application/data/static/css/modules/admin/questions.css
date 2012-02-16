@@ -236,7 +236,7 @@ div.question_container .media ul.image li {
     display: block;
     position: relative;
     float: right;
-    padding-left: 10px;
+    padding: 3px 0 0 10px;
 }
 
 #question_list .flag,#question_list .header .description {

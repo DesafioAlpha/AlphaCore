@@ -65,7 +65,7 @@ admin.main_menu    = {
         var dock = $('#dock');
         
         if(dock.is('div')){
-            dock.Fisheye({
+            dock.addClass('ready').Fisheye({
                 maxWidth  : 40,
                 items     : 'a',
                 itemsText : 'span',
